@@ -1789,7 +1789,6 @@ GameObject:
   - component: {fileID: 1297123663}
   - component: {fileID: 1297123662}
   - component: {fileID: 1297123661}
-  - component: {fileID: 1297123668}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1831,9 +1830,10 @@ MonoBehaviour:
   minPower: 5
   maxPower: 30
   chargeSpeed: 10
-  bowZoom: {fileID: 1297123668}
-  maxAmmo: 5
-  ammo: 5
+  playerCamera: {fileID: 1990464707}
+  zoomFOV: 10
+  zoomSpeed: 5
+  defaultFOV: 50
 --- !u!54 &1297123663
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1952,23 +1952,6 @@ Transform:
   - {fileID: 1990464705}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.576}
---- !u!114 &1297123668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1297123660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c35da045a648c64587ccc9bf192fcd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1990464707}
-  zoomFOV: 10
-  zoomSpeed: 5
-  defaultFOV: 50
-  isCharging: 0
 --- !u!1 &1312734387
 GameObject:
   m_ObjectHideFlags: 0
