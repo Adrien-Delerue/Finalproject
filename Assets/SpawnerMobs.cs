@@ -8,11 +8,12 @@ using Random = UnityEngine.Random;
 public class SpawnerMobs : MonoBehaviour
 {
     [SerializeField] private float RadiusMin;
-    [SerializeField] private float RadiusMax;
-    [SerializeField] private int Score;
+    [SerializeField] private float RadiusMax; 
     [SerializeField] private GameObject mobObject;
     [SerializeField] private GameObject ammoObject;
     [SerializeField] private Transform targetFlag;
+
+
 
     void Start()
     {
@@ -23,14 +24,17 @@ public class SpawnerMobs : MonoBehaviour
     IEnumerator SpawnLoop()
     {
         while (true)
-        {
-            SpawnWave(Score / 500 + 1, Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(Score * 0.1f)), 360));
+        {    
+            
+            SpawnWave(ScoreManager.instance.score / 500 + 1, Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(ScoreManager.instance.score * 0.1f)), 360));
             yield return new WaitForSeconds(7f);
+            
         }
     }
 
     void SpawnWave(int nbMob, int angleMax)
     {
+        Debug.Log(nbMob);
         for (int i = 0; i < nbMob; i++)
         {
             GameObject mob = Instantiate(mobObject, GetRandomPosition(angleMax), Quaternion.identity);

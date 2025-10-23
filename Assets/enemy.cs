@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth = 100f;
+    [SerializeField] public float maxHealth = 100f;
     private float currentHealth;
+    
+    
 
     void Start()
     {
@@ -24,7 +26,12 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Debug.Log(gameObject.name + " est mort !");
-        // Ici tu peux jouer une animation, un effet de particule, etc.
+
+        if (ScoreManager.instance != null)
+        {
+            ScoreManager.instance.AddScore(1000);
+        }
+
         Destroy(gameObject);
     }
 }
