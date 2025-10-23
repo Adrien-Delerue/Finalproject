@@ -14,11 +14,17 @@ public class BowShoot : MonoBehaviour
     private float currentPower;
     private bool isCharging = false;
 
+    [SerializeField] public int maxAmmo = 5;
+    [SerializeField] public int ammo = 5;
+
     void Update()
     {
         // Si le joueur commence à appuyer (clic gauche)
         if (Input.GetButtonDown("Fire1"))
         {
+            // Vérifie qu'il reste des flèches
+            if (AmmoManager.instance != null && !AmmoManager.instance.UseAmmo())
+                return; // pas de tir si plus de munitions
             isCharging = true;
             currentPower = minPower;
         }
@@ -57,5 +63,6 @@ public class BowShoot : MonoBehaviour
         {
             arrowScript.damage = currentPower;
         }
+        ammo--;
     }
 }
