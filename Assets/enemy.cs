@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
         if (ScoreManager.instance != null)
         {
-            ScoreManager.instance.AddScore(1000);
+            ScoreManager.instance.AddScore(100);
         }
 
         Destroy(gameObject);

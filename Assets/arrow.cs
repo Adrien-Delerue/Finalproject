@@ -2,36 +2,44 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public float damage = 25f;  // dégâts de base de la flèche
-    public float lifetime = 5f; // durée avant destruction automatique
-
+    public float damage = 10f;
     private Rigidbody rb;
-    private bool hasHit = false;
+    private bool stuck = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, lifetime); // détruit la flèche après un délai
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // collisions précises à haute vitesse
+        Destroy(gameObject, 5f);
+    }
+
+    void FixedUpdate()
+    {
+        if (!stuck)
+        {
+            // La flèche regarde toujours dans la direction du déplacement
+            if (rb.velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(rb.velocity);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (hasHit) return; // empêche les collisions multiples
-        hasHit = true;
+        if (stuck) return;
 
-        // Vérifie si l’objet touché a un script "Enemy"
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        // Touche un ennemi
+        var enemy = collision.collider.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
         }
 
-        // Optionnel : désactive la physique après impact
-        rb.isKinematic = true;
-        rb.velocity = Vector3.zero;
-        transform.parent = collision.transform; // colle la flèche dans la cible
-
-        // Détruit la flèche après un court délai pour l’effet visuel
-        Destroy(gameObject, 2f);
+        // La flèche se fixe à l'objet touché
+        rb.isKinematic = true; // plus de physique
+        transform.parent = collision.transform; // s’attache à l’objet touché
+        stuck = true;
     }
 }

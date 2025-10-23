@@ -13,6 +13,7 @@ public class BowShoot : MonoBehaviour
 
     private float currentPower;
     private bool isCharging = false;
+    public BowZoom bowZoom;
 
     [SerializeField] public int maxAmmo = 5;
     [SerializeField] public int ammo = 5;
@@ -27,6 +28,7 @@ public class BowShoot : MonoBehaviour
                 return; // pas de tir si plus de munitions
             isCharging = true;
             currentPower = minPower;
+            if (bowZoom != null) bowZoom.isCharging = true;
         }
 
         // Tant qu'il maintient le clic, on charge la puissance
@@ -41,6 +43,8 @@ public class BowShoot : MonoBehaviour
         {
             ShootArrow();
             isCharging = false;
+            if (bowZoom != null) bowZoom.isCharging = false;
+
         }
     }
 
@@ -63,6 +67,6 @@ public class BowShoot : MonoBehaviour
         {
             arrowScript.damage = currentPower;
         }
-        ammo--;
+        
     }
 }

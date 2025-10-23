@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2901321028788834849}
   - component: {fileID: -1417029225615659650}
   - component: {fileID: -418956936138341245}
-  - component: {fileID: -482170551256070778}
   m_Layer: 0
   m_Name: Armor_Piercing_Arrow
   m_TagString: Untagged
@@ -27,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2524338741819213979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.67638665, y: -0.3551634, z: -0.3737396, w: 0.52600265}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2320378725316256633}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.493, y: -100.772, z: -102.543}
 --- !u!114 &-1417029225615659650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  lifetime: 5
 --- !u!54 &-418956936138341245
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -57,8 +55,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2524338741819213979}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 0.5
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -75,30 +73,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &-482170551256070778
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2524338741819213979}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_CollisionDetection: 1
 --- !u!1 &6811003214142861378
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +85,7 @@ GameObject:
   - component: {fileID: 2320378725316256633}
   - component: {fileID: 640790379372436019}
   - component: {fileID: 4161661773677100711}
+  - component: {fileID: 4166200803398485573}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -125,13 +101,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6811003214142861378}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.056817204, y: 0.00000020861626, z: -0.000000074505806, w: -0.99838465}
+  m_LocalPosition: {x: -0.435, y: -0.011, z: -0.229}
+  m_LocalScale: {x: 0.9451, y: 0.50533503, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2901321028788834849}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 353.486, y: 0, z: 0}
 --- !u!33 &640790379372436019
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -182,3 +158,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4166200803398485573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6811003214142861378}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0619, y: 0.845101, z: 0.021121}
+  m_Center: {x: -0.000798, y: 0.42224652, z: -0.0033535}
