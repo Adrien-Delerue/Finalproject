@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class BowShoot : MonoBehaviour
 {
-    [Header("Références")]
     public GameObject arrowPrefab;
     public Transform shootPoint;
 
-    [Header("Paramètres de tir")]
     public float minPower = 5f;
     public float maxPower = 30f;
     public float chargeSpeed = 10f;
 
     private float currentPower;
     private bool isCharging = false;
-    public BowZoom bowZoom;
-
-    [SerializeField] public int maxAmmo = 5;
-    [SerializeField] public int ammo = 5;
+    
+    public Camera playerCamera;   // caméra du joueur
+    [SerializeField] public float zoomFOV = 20f;   // FOV quand on vise
+    [SerializeField] public float zoomSpeed = 5f;  // vitesse de transition
+    [SerializeField] public float defaultFOV = 55f;     // FOV normal
 
     void Update()
     {
+        float targetFOV = isCharging ? zoomFOV : defaultFOV;
+        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
         // Si le joueur commence à appuyer (clic gauche)
         if (Input.GetButtonDown("Fire1"))
         {
@@ -28,7 +29,7 @@ public class BowShoot : MonoBehaviour
                 return; // pas de tir si plus de munitions
             isCharging = true;
             currentPower = minPower;
-            if (bowZoom != null) bowZoom.isCharging = true;
+            
         }
 
         // Tant qu'il maintient le clic, on charge la puissance
@@ -43,7 +44,6 @@ public class BowShoot : MonoBehaviour
         {
             ShootArrow();
             isCharging = false;
-            if (bowZoom != null) bowZoom.isCharging = false;
 
         }
     }
