@@ -13,16 +13,12 @@ public class Arrow : MonoBehaviour
         Destroy(gameObject, 5f);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!stuck)
         {
             // La flèche regarde toujours dans la direction du déplacement
-            if (rb.velocity != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(rb.velocity);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-            }
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
         }
     }
 

@@ -5,17 +5,17 @@ public class BowShoot : MonoBehaviour
     public GameObject arrowPrefab;
     public Transform shootPoint;
 
-    public float minPower = 5f;
-    public float maxPower = 30f;
-    public float chargeSpeed = 10f;
+    private float minPower = 10f;
+    private float maxPower = 50f;
+    private float chargeSpeed = 10f;
 
     private float currentPower;
     private bool isCharging = false;
     
     public Camera playerCamera;   // caméra du joueur
-    [SerializeField] public float zoomFOV = 20f;   // FOV quand on vise
-    [SerializeField] public float zoomSpeed = 5f;  // vitesse de transition
-    [SerializeField] public float defaultFOV = 55f;     // FOV normal
+    [SerializeField] public float zoomFOV = 40f;   // FOV quand on vise
+    [SerializeField] public float zoomSpeed = 2f;  // vitesse de transition
+    [SerializeField] public float defaultFOV = 50f;     // FOV normal
 
     void Update()
     {
