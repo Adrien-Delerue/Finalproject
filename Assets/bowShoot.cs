@@ -50,23 +50,33 @@ public class BowShoot : MonoBehaviour
 
     void ShootArrow()
     {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Vector3 targetPoint;
+        
+        if(Physics.Raycast(ray,out RaycastHit hit, 100f))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(100f);
+        }
+        Vector3 shootDir = (targetPoint - shootPoint.position).normalized;
+        
         // Instancie la flèche à l'emplacement du ShootPoint
-        GameObject arrow = Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+        GameObject arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.LookRotation(shootDir));
 
         Rigidbody rb = arrow.GetComponent<Rigidbody>();
 
-        // Direction : utilise le forward du ShootPoint (qui peut suivre la caméra)
-        Vector3 shootDirection = shootPoint.forward;
-
         // Applique la vitesse initiale selon la puissance
-        rb.velocity = shootDirection * currentPower;
+        rb.AddForce(shootDir * currentPower, ForceMode.Impulse);
+
 
         // Transmet la puissance pour les dégâts si nécessaire
         Arrow arrowScript = arrow.GetComponent<Arrow>();
         if (arrowScript != null)
         {
             arrowScript.damage = currentPower;
-        }
-        
+        }        
     }
 }
