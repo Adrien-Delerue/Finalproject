@@ -6,7 +6,7 @@ public class BowShoot : MonoBehaviour
     public Transform shootPoint;
 
     private float minPower = 10f;
-    private float maxPower = 50f;
+    private float maxPower = 30f;
     private float chargeSpeed = 10f;
 
     private float currentPower;

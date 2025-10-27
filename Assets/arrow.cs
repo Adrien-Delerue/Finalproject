@@ -25,17 +25,15 @@ public class Arrow : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (stuck) return;
+        stuck = true;
 
+       
         // Touche un ennemi
         var enemy = collision.collider.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
         }
-
-        // La flèche se fixe à l'objet touché
-        rb.isKinematic = true; // plus de physique
-        transform.parent = collision.transform; // s’attache à l’objet touché
-        stuck = true;
+        Destroy(gameObject);
     }
 }
