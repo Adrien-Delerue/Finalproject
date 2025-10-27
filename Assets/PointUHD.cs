@@ -40,9 +40,9 @@ public class PointUHD : MonoBehaviour
     void Update()
     {
         // ajouter 1 point quand la touche Espace est enfoncée
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (ScoreManager.instance!=null)
         {
-            Points++;
+            Points=ScoreManager.instance.score;
         }
     }
 }
