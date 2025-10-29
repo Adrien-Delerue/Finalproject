@@ -20,19 +20,22 @@ public class SpawnerMobs : MonoBehaviour
 			return;
         }
 
-		// Wait 5 seconds before starting to spawn mobs
-        Invoke(nameof(BeginSpawning), 5f);
-
 		// Start the coroutine that spawns mobs
 		StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
     {
-        while (true)
+		yield return new WaitForSeconds(5f);
+		Debug.Log("Beginning to spawn mobs.");
+
+		while (true)
         {
-            SpawnWave(ScoreManager.instance.score / 500 + 1, Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(ScoreManager.instance.score * 0.1f)), 360));
-            yield return new WaitForSeconds(7f);
+			int nbMob = ScoreManager.instance.score / 500 + 1;
+			int angleMax = Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(ScoreManager.instance.score * 0.1f)), 360);
+
+			SpawnWave(nbMob, angleMax);
+			yield return new WaitForSeconds(7f);
         }
     }
 
@@ -57,7 +60,7 @@ public class SpawnerMobs : MonoBehaviour
         int randomAngle = Random.Range(0, angleMax);
         float angle = 2 * Mathf.PI * randomAngle / 360f;
 
-        return new Vector3(randomRadius * Mathf.Cos(angle), 1, randomRadius * Mathf.Sin(angle));
+        return new Vector3(randomRadius * Mathf.Cos(angle), 2, randomRadius * Mathf.Sin(angle));
     }
 
     void BeginSpawning()

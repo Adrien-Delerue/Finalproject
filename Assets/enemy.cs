@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour
 	private readonly float maxHealth = 20f;
     
     private float currentHealth;
-    enum State { ToFlag, Chase, Attack }
+	private float lastAttackTime = -Mathf.Infinity;
+	enum State { ToFlag, Chase, Attack }
 	private State state = State.ToFlag;
 
 	public void Init(Transform flagTargetParam)
@@ -29,7 +30,6 @@ public class Enemy : MonoBehaviour
 		if (agent == null || flagTarget == null || player == null || transform == null)
 		{
 			Debug.LogError("Enemy initialization error: missing components or references.");
-			Debug.LogError("Agent: " + (agent == null) + ", FlagTarget: " + (flagTarget == null) + ", Player: " + (player == null));
 			enabled = false;
 		}
 		else
@@ -54,19 +54,29 @@ public class Enemy : MonoBehaviour
 		}
 
 		float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+		float distToFlag = Vector3.Distance(transform.position, flagTarget.position);
 
 		switch (state)
 		{
 			case State.ToFlag:
-				if (!agent.pathPending) agent.SetDestination(flagTarget.position);
-				if (distToPlayer <= chaseRadius) state = State.Chase;
+				if (!agent.pathPending)
+				{
+					agent.SetDestination(flagTarget.position);
+
+					if (distToFlag <= agent.stoppingDistance)
+					{
+						Debug.Log("Enemy reached the flag at the distance of " + distToFlag);
+						OnReachFlag();
+					}
+				}
+
+				if (distToPlayer <= chaseRadius)
+					state = State.Chase;
 				break;
 
 			case State.Chase:
 				agent.isStopped = false;
 				agent.SetDestination(player.transform.position);
-
-
 
 				// close enough -> attack
 				if (distToPlayer <= attackRadius)
@@ -74,15 +84,12 @@ public class Enemy : MonoBehaviour
 					agent.isStopped = true;
 					state = State.Attack;
 				}
+
 				// player too far or flag too close -> go back to flag
-				else
+				else if (distToPlayer > chaseRadius || distToFlag < focusFlagRadius)
 				{
-					float distToFlag = Vector3.Distance(transform.position, flagTarget.position);
-					if (distToPlayer > chaseRadius || distToFlag < focusFlagRadius)
-					{
-						state = State.ToFlag;
-						agent.isStopped = false;
-					}
+					state = State.ToFlag;
+					agent.isStopped = false;
 				}
 				break;
 
@@ -92,14 +99,11 @@ public class Enemy : MonoBehaviour
 				lookPos.y = transform.position.y;
 				transform.LookAt(lookPos);
 
-				/*
 				if (Time.time - lastAttackTime >= attackCooldown)
 				{
 					lastAttackTime = Time.time;
 					AttackPlayer();
 				}
-				*/
-				AttackPlayer();
 
 				// if player moves out of attack range, chase again
 				if (distToPlayer > attackRadius + 0.5f)
@@ -142,5 +146,10 @@ public class Enemy : MonoBehaviour
 			playerController.TakeDamage(playerDamage);
 			Debug.Log(gameObject.name + " attaque le joueur ! Dégâts infligés : " + playerDamage + ".");
 		}
+	}
+
+	void OnReachFlag()
+	{
+		Debug.Log(gameObject.name + " a atteint le drapeau !");
 	}
 }
