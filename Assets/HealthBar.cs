@@ -6,8 +6,17 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
+	public static HealthBar instance; // permet d'y accéder depuis d'autres scripts
 
-    public void setMaxHealth(int health)
+	void Awake()
+	{
+		if (instance == null)
+			instance = this;
+		else
+			Destroy(gameObject);
+	}
+
+	public void setMaxHealth(int health)
     {
         slider.maxValue = health;
         slider.value = health;

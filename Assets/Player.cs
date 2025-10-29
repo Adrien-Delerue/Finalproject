@@ -2,22 +2,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Mouvement")]
+	public static PlayerController instance;
+
+	[Header("Mouvement")]
     public float moveSpeed = 5f;
 
     [Header("Caméra")]
     [SerializeField] public float mouseSensitivity = 100f;
     [SerializeField] public Transform playerBody;
     [SerializeField] public Transform shootPoint;
-    [SerializeField] public int health = 100;
+    // private HealthBar health;
     
 
     private float xRotation = 0f;
 
-    void Start()
+	void Awake()
+	{
+		if (instance == null)
+			instance = this;
+		else
+			Destroy(gameObject);
+	}
+
+	void Start()
     {
-        // Verrouille le curseur au centre de
-        Cursor.lockState = CursorLockMode.Locked;
+		// Verrouille le curseur au centre de
+		Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
@@ -40,5 +50,10 @@ public class PlayerController : MonoBehaviour
 
         playerBody.Rotate(Vector3.up * mouseX);
     }
+
+	public void TakeDamage(int damage)
+    {
+        HealthBar.instance.takeDammage(damage);
+	}
 }
 
