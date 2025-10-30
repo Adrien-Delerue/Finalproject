@@ -21,11 +21,14 @@ public class Enemy : MonoBehaviour
 	enum State { ToFlag, Chase, Attack }
 	private State state = State.ToFlag;
 
+	private Animator animator;
+
 	public void Init(Transform flagTargetParam)
 	{
 		currentHealth = maxHealth;
 		agent = GetComponent<NavMeshAgent>();
-		player = PlayerController.instance?.gameObject;
+        animator = GetComponent<Animator>(); //gettting the component of the animator
+        player = PlayerController.instance?.gameObject;
 		flagTarget = flagTargetParam;
 		if (agent == null || flagTarget == null || player == null || transform == null)
 		{
@@ -35,8 +38,8 @@ public class Enemy : MonoBehaviour
 		else
 		{
 			enabled = true;
-		}
-	}
+		}       
+    }
 
 	void Update()
 	{
@@ -130,6 +133,8 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(gameObject.name + " est mort !");
 
+		animator.SetTrigger("Death");
+
         if (ScoreManager.instance != null)
         {
             ScoreManager.instance.AddScore(100);
@@ -141,7 +146,10 @@ public class Enemy : MonoBehaviour
 	void AttackPlayer()
 	{
 		PlayerController playerController = player.GetComponent<PlayerController>();
-		if (playerController != null)
+
+        animator.SetTrigger("Attack");
+
+        if (playerController != null)
 		{
 			playerController.TakeDamage(playerDamage);
 			Debug.Log(gameObject.name + " attaque le joueur ! Dégâts infligés : " + playerDamage + ".");
