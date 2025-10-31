@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -11,7 +13,7 @@ public class Enemy : MonoBehaviour
 	private readonly float focusFlagRadius = 10f;
 	private readonly float chaseRadius = 10f;
 	private readonly float attackRadius = 2f;
-	private readonly float attackCooldown = 1.2f;
+	private readonly float attackCooldown = 1.25f;
 	private readonly int playerDamage = 10;
 	private readonly string playerTag = "Player";
 	private readonly float maxHealth = 20f;
@@ -38,14 +40,23 @@ public class Enemy : MonoBehaviour
 		else
 		{
 			enabled = true;
-		}       
+		}
+
+        //sound at random occurences
+  //      AudioSource audio = GetComponent<AudioSource>();
+  //      audio.Play();
+  //      Debug.Log("crieeeee");
+  //      if (Random.Range(0, 10) == 1)
+		//{
+			
+		//}
     }
 
 	void Update()
 	{
 		if (flagTarget == null)
 		{
-			Debug.LogError("Flag target is null. Enemy cannot operate.");
+			//Debug.LogError("Flag target is null. Enemy cannot operate.");
 			return;
 		}
 
@@ -68,7 +79,7 @@ public class Enemy : MonoBehaviour
 
 					if (distToFlag <= agent.stoppingDistance)
 					{
-						Debug.Log("Enemy reached the flag at the distance of " + distToFlag);
+						//Debug.Log("Enemy reached the flag at the distance of " + distToFlag);
 						OnReachFlag();
 					}
 				}
@@ -133,17 +144,23 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(gameObject.name + " est mort !");
 
-		animator.SetTrigger("Death");
-
         if (ScoreManager.instance != null)
         {
             ScoreManager.instance.AddScore(100);
         }
+        animator.SetTrigger("Death");
+        //new WaitForSeconds(10f);
+        //Destroy(gameObject);
+        StartCoroutine(WaitForAnimationAndDestroy());
+    }
 
+    private IEnumerator WaitForAnimationAndDestroy()
+    {
+        yield return new WaitForSeconds(1.15f);
         Destroy(gameObject);
     }
 
-	void AttackPlayer()
+    void AttackPlayer()
 	{
 		PlayerController playerController = player.GetComponent<PlayerController>();
 
@@ -158,6 +175,6 @@ public class Enemy : MonoBehaviour
 
 	void OnReachFlag()
 	{
-		Debug.Log(gameObject.name + " a atteint le drapeau !");
+		//Debug.Log(gameObject.name + " a atteint le drapeau !");
 	}
 }
