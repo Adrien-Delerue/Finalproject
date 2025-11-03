@@ -52,7 +52,11 @@ public class SpawnerMobs : MonoBehaviour
                 mob.SetActive(true);
             }
 		}
-        if (Random.value < 0.5f) Instantiate(ammoObject, GetRandomPosition(angleMax), Quaternion.identity);
+        if (Random.value < 0.5f){
+            Vector3 ammoPosition = GetRandomPosition(angleMax);
+            ammoPosition.y = 0.5f;
+            Instantiate(ammoObject, ammoPosition, Quaternion.identity);
+        }
     }
 
     Vector3 GetRandomPosition(int angleMax) {
