@@ -25,7 +25,10 @@ public class Enemy : MonoBehaviour
 
 	private Animator animator;
 
-	public void Init(Transform flagTargetParam)
+	public AudioSource attackAudio;
+	public AudioSource deathAudio;
+
+    public void Init(Transform flagTargetParam)
 	{
 		currentHealth = maxHealth;
 		agent = GetComponent<NavMeshAgent>();
@@ -41,15 +44,6 @@ public class Enemy : MonoBehaviour
 		{
 			enabled = true;
 		}
-
-        //sound at random occurences
-  //      AudioSource audio = GetComponent<AudioSource>();
-  //      audio.Play();
-  //      Debug.Log("crieeeee");
-  //      if (Random.Range(0, 10) == 1)
-		//{
-			
-		//}
     }
 
 	void Update()
@@ -149,8 +143,7 @@ public class Enemy : MonoBehaviour
             ScoreManager.instance.AddScore(100);
         }
         animator.SetTrigger("Death");
-        //new WaitForSeconds(10f);
-        //Destroy(gameObject);
+        deathAudio.Play();
         StartCoroutine(WaitForAnimationAndDestroy());
     }
 
@@ -165,6 +158,7 @@ public class Enemy : MonoBehaviour
 		PlayerController playerController = player.GetComponent<PlayerController>();
 
         animator.SetTrigger("Attack");
+        attackAudio.Play();
 
         if (playerController != null)
 		{
