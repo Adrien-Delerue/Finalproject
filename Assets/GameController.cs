@@ -11,6 +11,12 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+
+        if (HealthBar.instance.slider.value <= 0)
+        {
+            GameOver();
+        }
+
         // Si le joueur appuie sur Échap
         if (Input.GetKeyDown(KeyCode.Escape))
         {

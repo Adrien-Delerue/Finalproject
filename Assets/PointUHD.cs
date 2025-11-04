@@ -5,10 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PointUHD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pointText;
-    private int points = 0;
+    private int points = 10000;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class PointUHD : MonoBehaviour
 
     void Start()
     {
-        Points = 0;
+        Points = 10000;
     }
 
     // Update is called once per frame
