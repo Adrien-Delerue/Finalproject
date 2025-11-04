@@ -25,10 +25,6 @@ public class GameController : MonoBehaviour
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                GameOver();
-            }
         }
     }
 }
