@@ -3,24 +3,32 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public GameOverScreen GameOverScreen;
+    private bool isGameOver = false;
 
     public void GameOver()
     {
-        GameOverScreen.Setup(100);
+        if (!isGameOver) 
+        {
+            isGameOver = true;
+            Time.timeScale = 0f; 
+            GameOverScreen.Setup(ScoreManager.instance.score);
+        }
     }
 
     void Update()
     {
-
-        if (HealthBar.instance.slider.value <= 0)
+        if (!isGameOver) 
         {
-            GameOver();
-        }
+            if (HealthBar.instance.slider.value <= 0)
+            {
+                GameOver();
+            }
 
-        // Si le joueur appuie sur Échap
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameOver();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameOver();
+            }
         }
     }
 }
