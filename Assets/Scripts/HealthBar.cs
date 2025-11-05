@@ -25,6 +25,11 @@ public class HealthBar : MonoBehaviour
     {
         slider.value = health;
     }
+    public void giveHP(int damage)
+    {
+        slider.value += damage;
+    }
+
     public void takeDammage(int damage)
     {
         slider.value -= damage;
