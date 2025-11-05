@@ -1,50 +1,42 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEditor;
-//using UnityEngine;
-
-//public class TreeSpawner : MonoBehaviour
-//{
-//    public GameObject tree1Object;
-//    //public GameObject tree2Object;
-//    public int treesCount = 30;
-//    public float radius = 35f;
-//    public float diffTree = 0.6f;
-
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        for (int i = 0; i < treesCount; i++)
-//        {
-//            float angle = 2 * Mathf.PI * i / treesCount;
-//            Vector3 position1 = new Vector3(radius * Mathf.Cos(angle), 0, radius * Mathf.Sin(angle));
-
-//            //Vector3 position2 = new Vector3(radius * Mathf.Cos(angle+diffTree), 0, radius * Mathf.Sin(angle+ diffTree));
-
-//            Instantiate(tree1Object, position1, Quaternion.Euler(0,angle,0));
-
-//            //Instantiate(tree2Object, position2, Quaternion.identity);
-//        }
-//    }
-
-//}
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpawner : MonoBehaviour
+public class DecorSpawner : MonoBehaviour
 {
-    public GameObject tree1Object;
-    public int treesCount = 30;
-    public float radius = 35f;
+    public GameObject fence;
+    private int fenceCount = 30;
+    private float fenceRadius = 35f;
+
+    public GameObject backgroundTree;
+    private int treeCount = 50;
+    private float treeRadius = 40f;
+
+    public GameObject grass;
+    private int grassCount = 100;    
 
     void Start()
-    {
-        for (int i = 0; i < treesCount; i++)
+    {   //Instatiating fences
+        SpawnInCircle(fence, fenceCount, fenceRadius);
+        //Instantiating background tree
+        SpawnInCircle(backgroundTree, treeCount, treeRadius);
+
+        //grass Spawn
+        for (int i = 0; i < grassCount; i++)
+        {
+            float randomRadius = Random.Range(10, 34);
+            int randomAngle = Random.Range(0, 360);
+            float angle = 2 * Mathf.PI * randomAngle / 360f;
+
+            Instantiate(grass, new Vector3(randomRadius * Mathf.Cos(angle), 0, randomRadius * Mathf.Sin(angle)), Quaternion.identity);
+        }
+
+    }
+    void SpawnInCircle(GameObject obj, int nb, float radius) {
+        for (int i = 0; i < nb; i++)
         {
             // Calcul de la position sur le cercle
-            float angle = 2 * Mathf.PI * i / treesCount;
+            float angle = 2 * Mathf.PI * i / nb;
             Vector3 position = new Vector3(
                 radius * Mathf.Cos(angle),
                 0,
@@ -55,7 +47,8 @@ public class TreeSpawner : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(-position.normalized, Vector3.up);
 
             // Instanciation de l’arbre
-            Instantiate(tree1Object, position, rotation, transform);
+            Instantiate(obj, position, rotation, transform);
         }
-    }
+    }   
+
 }

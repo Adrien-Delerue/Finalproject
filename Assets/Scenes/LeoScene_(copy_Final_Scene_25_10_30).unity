@@ -2005,6 +2005,64 @@ RectTransform:
   m_AnchoredPosition: {x: 324, y: -107}
   m_SizeDelta: {x: 134.842, y: 112.63}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1304477842
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768427471517917351, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541867568462723613, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+      propertyPath: m_Name
+      value: Grass
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -2997184651499743394, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
 --- !u!1 &1331525279
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +2197,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331525279}
   m_CullTransparentMesh: 1
+--- !u!1 &1351435981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4541867568462723613, guid: fdaea2623be08f44389af75cb9c492f7, type: 3}
+  m_PrefabInstance: {fileID: 1304477842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1359945221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,7 +2503,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1448648513}
-  - component: {fileID: 1448648512}
   - component: {fileID: 1448648514}
   m_Layer: 0
   m_Name: DecorSpawner
@@ -2449,21 +2511,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1448648512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448648511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 037a95d0994b6e649acc85d00f59017f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tree1Object: {fileID: 969973999}
-  treesCount: 70
-  radius: 35
 --- !u!4 &1448648513
 Transform:
   m_ObjectHideFlags: 0
@@ -2491,9 +2538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037a95d0994b6e649acc85d00f59017f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree1Object: {fileID: 1574225869}
-  treesCount: 50
-  radius: 40
+  fence: {fileID: 969973999}
+  backgroundTree: {fileID: 1574225869}
+  grass: {fileID: 1351435981}
 --- !u!1 &1574225869 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6440774818338459094, guid: 7a8589994318cfa4ba3f5fb998d7ac8e, type: 3}
@@ -4098,3 +4145,4 @@ SceneRoots:
   - {fileID: 566576516}
   - {fileID: 1749964089}
   - {fileID: 1630714364}
+  - {fileID: 1304477842}
