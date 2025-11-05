@@ -1313,7 +1313,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529989349}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -1996,8 +1996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71428200c7400424db4f028892363301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 1000
-  currentAmmo: 1000
+  maxAmmo: 100
+  currentAmmo: 5
 --- !u!4 &1038515117
 Transform:
   m_ObjectHideFlags: 0
@@ -2548,7 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  mouseSensitivity: 100
+  mouseSensitivity: 500
   playerBody: {fileID: 1297123667}
   shootPoint: {fileID: 2083012334}
 --- !u!114 &1297123662
