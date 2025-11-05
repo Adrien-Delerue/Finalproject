@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
-	public static HealthBar instance; // permet d'y accéder depuis d'autres scripts
+	public static HealthBar instance;
 
 	void Awake()
 	{
@@ -29,16 +29,9 @@ public class HealthBar : MonoBehaviour
     {
         slider.value -= damage;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         setMaxHealth(100);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
     }
 }

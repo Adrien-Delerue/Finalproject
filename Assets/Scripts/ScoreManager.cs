@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI; // pour l'affichage du score
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance; // permet d'y accéder depuis d'autres scripts
+    public static ScoreManager instance;
 
     [SerializeField] public int score = 0;
 
@@ -23,8 +23,8 @@ public class ScoreManager : MonoBehaviour
     }
     void Update()
     {
-        // Incrément du score avec le temps
-        timer += Time.deltaTime;
+		// Score increment over time
+		timer += Time.deltaTime;
         if (timer >= 1f)
         {
             score += 1;

@@ -9,12 +9,12 @@ public class SpawnerHearts : MonoBehaviour
     [SerializeField] private GameObject heartPrefab;
 
     [Header("Timing")]
-    [SerializeField] private float spawnInterval = 15f; // Intervalle entre chaque spawn
-    [SerializeField] private float spawnChance = 0.3f; // 30% de chance de spawn à chaque intervalle
+    [SerializeField] private float spawnInterval = 15f;
+    [SerializeField] private float spawnChance = 0.3f;
 
     [Header("Spawn Area")]
-    [SerializeField] private int maxAngle = 360; // Angle maximum pour la zone de spawn
-    [SerializeField] private float spawnHeight = 1f; // Hauteur du spawn (Y)
+    [SerializeField] private int maxAngle = 360;
+    [SerializeField] private float spawnHeight = 1f;
 
     void Start()
     {
@@ -27,8 +27,8 @@ public class SpawnerHearts : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval);
 
-            // Spawn avec une probabilité
-            if (Random.value < spawnChance)
+			// Spawn with a probability
+			if (Random.value < spawnChance)
             {
                 SpawnHeart();
             }
@@ -52,14 +52,5 @@ public class SpawnerHearts : MonoBehaviour
             spawnHeight,
             randomRadius * Mathf.Sin(angle)
         );
-    }
-
-    // Optionnel : Visualiser la zone de spawn dans l'éditeur
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, radiusMin);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radiusMax);
     }
 }

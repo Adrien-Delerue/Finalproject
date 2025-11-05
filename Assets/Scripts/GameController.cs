@@ -23,8 +23,6 @@ public class GameController : MonoBehaviour
             {
                 GameOver();
             }
-
-
         }
     }
 }

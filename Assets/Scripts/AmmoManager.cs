@@ -6,9 +6,8 @@ public class AmmoManager : MonoBehaviour
 {
     public static AmmoManager instance;
 
-    public int maxAmmo = 5;       // nombre maximum de flèches
-    public int currentAmmo;        // flèches restantes
-
+	[SerializeField] private int maxAmmo = 5;
+    public int currentAmmo;
 
     void Awake()
     {
@@ -25,22 +24,20 @@ public class AmmoManager : MonoBehaviour
 
     public void AddAmmo(int amount)
     {
-        currentAmmo = Mathf.Min(currentAmmo + amount, maxAmmo); // ne dépasse pas max
+		if (amount <= 0) return;
+
+		currentAmmo = Mathf.Min(currentAmmo + amount, maxAmmo);
     }
 
-
-    // Appelé depuis BowShoot quand on tire
-    public bool UseAmmo()
+	// Called a BowShoot when fired
+	public bool UseAmmo()
     {
         if (currentAmmo > 0)
         {
             currentAmmo--;
-            return true; // tir possible
+            return true;
         }
-        else
-        {
-            Debug.Log("Pas assez de flèches !");
-            return false; // tir impossible
-        }
+
+        return false;
     }
 }

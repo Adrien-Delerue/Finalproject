@@ -16,12 +16,12 @@ public class DecorSpawner : MonoBehaviour
     private int grassCount = 100;    
 
     void Start()
-    {   //Instatiating fences
+    {   // Instatiating fences
         SpawnInCircle(fence, fenceCount, fenceRadius);
-        //Instantiating background tree
+        // Instantiating background tree
         SpawnInCircle(backgroundTree, treeCount, treeRadius);
 
-        //grass Spawn
+        // Grass Spawn
         for (int i = 0; i < grassCount; i++)
         {
             float randomRadius = Random.Range(10, 34);
@@ -35,19 +35,19 @@ public class DecorSpawner : MonoBehaviour
     void SpawnInCircle(GameObject obj, int nb, float radius) {
         for (int i = 0; i < nb; i++)
         {
-            // Calcul de la position sur le cercle
-            float angle = 2 * Mathf.PI * i / nb;
+			// Calculate the position on the circle
+			float angle = 2 * Mathf.PI * i / nb;
             Vector3 position = new Vector3(
                 radius * Mathf.Cos(angle),
                 0,
                 radius * Mathf.Sin(angle)
             );
 
-            // Création de la rotation vers le centre
-            Quaternion rotation = Quaternion.LookRotation(-position.normalized, Vector3.up);
+			// Create the rotation toward the center
+			Quaternion rotation = Quaternion.LookRotation(-position.normalized, Vector3.up);
 
-            // Instanciation de l’arbre
-            Instantiate(obj, position, rotation, transform);
+			// Instantiate the tree
+			Instantiate(obj, position, rotation, transform);
         }
     }   
 

@@ -11,9 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float mouseSensitivity = 100f;
     [SerializeField] public Transform playerBody;
     [SerializeField] public Transform shootPoint;
-    // private HealthBar health;
     
-
     private float xRotation = 0f;
 
 	void Awake()
@@ -26,26 +24,26 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
     {
-		// Verrouille le curseur au centre de
+		// Lock the cursor to the center of the screen
 		Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
-        // --- Mouvement du Player ---
-        float moveX = Input.GetAxis("Horizontal"); // A/D ou flèches gauche/droite
-        float moveZ = Input.GetAxis("Vertical");   // W/S ou flèches haut/bas
+		// Player Movement
+		float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         transform.position += move * moveSpeed * Time.deltaTime;
 
-        // --- Rotation de la caméra ---
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+		// Camera Movement
+		float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Empêche la caméra de tourner à 360° verticalement
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Prevents the camera from rotating 360° vertically
 
-        Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+		Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         shootPoint.rotation = Camera.main.transform.rotation;
 
         playerBody.Rotate(Vector3.up * mouseX);

@@ -6,33 +6,31 @@ using UnityEngine;
 public class AmmoUHD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ammoText;
-    private int Ammo = 0;
-    // Start is called before the first frame update
+    private int ammos = 0;
+    
     private void Awake()
     {
         UpdateHUD();
     }
+
     private void UpdateHUD()
     {
         if (ammoText != null)
-            ammoText.text = Ammo.ToString();
+            ammoText.text = ammos.ToString();
     }
 
     void Start()
     {
-        Ammo = AmmoManager.instance.currentAmmo;
+		ammos = AmmoManager.instance.currentAmmo;
         UpdateHUD();
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (ScoreManager.instance != null)
         {
-            Ammo = AmmoManager.instance.currentAmmo;
+			ammos = AmmoManager.instance.currentAmmo;
             UpdateHUD();
         }
-
     }
 }

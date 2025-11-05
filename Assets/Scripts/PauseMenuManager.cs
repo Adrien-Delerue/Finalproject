@@ -3,13 +3,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenuManager : MonoBehaviour
 {
-    [Header("UI Elements")]
+	public static PauseMenuManager instance;
+
+	[Header("UI Elements")]
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider volumeSlider;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
 
     void Start()
     {
@@ -58,11 +60,11 @@ public class PauseMenu : MonoBehaviour
         {
             float change = 0f;
 
-            //decrease volume
+            // Decrease volume
             if (Input.GetKey(KeyCode.LeftArrow))
                 change = -0.1f * Time.unscaledDeltaTime;
 
-            //increase volume
+            // Increase volume
             if (Input.GetKey(KeyCode.RightArrow))
                 change = 0.1f * Time.unscaledDeltaTime;
 
@@ -107,7 +109,6 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        // Quit the game
         Time.timeScale = 1f;
         Application.Quit();
         Debug.Log("Quit Game");
