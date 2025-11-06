@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI pointsText;
+    [SerializeField] public TextMeshProUGUI pointsText;
 
     public void Setup(int score)
     {

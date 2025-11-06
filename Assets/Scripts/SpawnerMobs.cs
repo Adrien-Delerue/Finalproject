@@ -11,7 +11,7 @@ public class SpawnerMobs : MonoBehaviour
     [SerializeField] private float RadiusMax; 
     [SerializeField] private GameObject mobObject;
     [SerializeField] private GameObject ammoObject;
-    [SerializeField] private Transform flagTarget;
+    [SerializeField] public Transform flagTarget;
 
     void Start()
     {

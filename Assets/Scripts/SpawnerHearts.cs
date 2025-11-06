@@ -6,10 +6,10 @@ public class SpawnerHearts : MonoBehaviour
 {
     [SerializeField] private float radiusMin = 10f;
     [SerializeField] private float radiusMax = 30f;
-    [SerializeField] private GameObject heartPrefab;
+    [SerializeField] public GameObject heartPrefab;
 
     [Header("Timing")]
-    [SerializeField] private float spawnInterval = 15f;
+    [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private float spawnChance = 0.3f; 
 
     [Header("Spawn Area")]
