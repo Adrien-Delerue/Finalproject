@@ -27,13 +27,23 @@ public class Arrow : MonoBehaviour
         if (stuck) return;
         stuck = true;
 
-       
-        // Touche un ennemi
-        var enemy = collision.collider.GetComponent<Enemy>();
-        if (enemy != null)
+        ContactPoint contact = collision.contacts[0];
+
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            enemy.TakeDamage(damage);
+            rb.isKinematic = true;
+            transform.parent = collision.transform;
+
+            Destroy(gameObject, 5f);
         }
-        Destroy(gameObject);
+        else
+        {// touch an ennemy
+            var enemy = collision.collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
     }
 }

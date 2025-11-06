@@ -39,7 +39,6 @@ public class AmmoManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pas assez de flèches !");
             return false; // tir impossible
         }
     }

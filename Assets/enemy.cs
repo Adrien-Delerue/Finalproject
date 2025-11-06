@@ -17,7 +17,9 @@ public class Enemy : MonoBehaviour
 	private readonly int playerDamage = 10;
 	private readonly string playerTag = "Player";
 	private readonly float maxHealth = 20f;
-    
+    private bool isDead = false;
+
+
     private float currentHealth;
 	private float lastAttackTime = -Mathf.Infinity;
 	enum State { ToFlag, Chase, Attack }
@@ -125,19 +127,28 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage(float amount)
     {
-        currentHealth -= amount;
-        Debug.Log(gameObject.name + " a pris " + amount + " dégâts. PV restants : " + currentHealth);
+		if (!isDead)
+		{
+			currentHealth -= amount;
+			Debug.Log(gameObject.name + " a pris " + amount + " dégâts. PV restants : " + currentHealth);
 
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
+			if (currentHealth <= 0f)
+			{
+				Die();
+			}
+		}
     }
 
     void Die()
     {
-        Debug.Log(gameObject.name + " est mort !");
+        if (isDead) return; // sécurité double
+        isDead = true;
 
+        agent.isStopped = true;
+        agent.enabled = false; // stoppe le déplacement navmesh
+        GetComponent<Collider>().enabled = false; // empêche d’être touché à nouveau
+        enabled = false;
+		
         if (ScoreManager.instance != null)
         {
             ScoreManager.instance.AddScore(100);
