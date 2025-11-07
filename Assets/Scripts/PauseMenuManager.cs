@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour
 {
-	public static PauseMenuManager instance;
+    public static PauseMenuManager instance;
 
-	[Header("UI Elements")]
+    [Header("UI Elements")]
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private GameObject crossHair; // Ajout de la référence au CrossHair
 
     public bool isPaused = false;
 
@@ -17,6 +18,10 @@ public class PauseMenuManager : MonoBehaviour
     {
         // Hide the pause menu at start
         pauseMenuUI.SetActive(false);
+
+        // S'assurer que le CrossHair est visible au démarrage
+        if (crossHair != null)
+            crossHair.SetActive(true);
 
         if (volumeSlider != null)
         {
@@ -83,17 +88,23 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        // Select the slider so it’s ready for input
+        // Cacher le CrossHair
+        if (crossHair != null)
+            crossHair.SetActive(false);
+
+        // Select the slider so it's ready for input
         if (volumeSlider != null)
             EventSystem.current.SetSelectedGameObject(volumeSlider.gameObject);
     }
 
     public void Resume()
     {
-        // Hide pause menu and resume time
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        if (crossHair != null)
+            crossHair.SetActive(true);
     }
 
     public void SetVolume(float volume)
