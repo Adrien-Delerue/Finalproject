@@ -13,7 +13,10 @@ public class SpawnerMobs : MonoBehaviour
     [SerializeField] private GameObject ammoObject;
 	[SerializeField] public Transform flagTarget;
 
-    void Start()
+	// Time between 2 waves
+	private float timeBetweenWaves = 5;
+
+	void Start()
     {
         if (flagTarget == null) {
             Debug.LogError("Flag is not assigned in SpawnerMobs.");
@@ -26,16 +29,18 @@ public class SpawnerMobs : MonoBehaviour
 
     IEnumerator SpawnLoop()
     {
-		yield return new WaitForSeconds(5f);
-		Debug.Log("Beginning to spawn mobs.");
-
 		while (true)
         {
+		    yield return new WaitForSeconds(timeBetweenWaves);
+            if (timeBetweenWaves < 20f)
+            {
+                timeBetweenWaves += 5f;
+			}
+
 			int nbMob = ScoreManager.instance.score / 500 + 1;
 			int angleMax = Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(ScoreManager.instance.score * 0.1f)), 360);
 
 			SpawnWave(nbMob, angleMax);
-			yield return new WaitForSeconds(7f);
         }
     }
 
@@ -43,7 +48,7 @@ public class SpawnerMobs : MonoBehaviour
     {
         for (int i = 0; i < nbMob; i++)
         {
-            GameObject mob = Instantiate(mobObject, GetRandomPosition(angleMax), Quaternion.identity);
+            GameObject mob = Instantiate(mobObject, GetRandomPosition(angleMax, 2f), Quaternion.identity);
 			mob.SetActive(false);
 			Enemy enemy = mob.GetComponent<Enemy>();
             if (enemy != null && flagTarget != null)
@@ -53,13 +58,12 @@ public class SpawnerMobs : MonoBehaviour
             }
 		}
         if (Random.value < 0.5f){
-            Vector3 ammoPosition = GetRandomPosition(angleMax);
-            ammoPosition.y = 0.5f;
+            Vector3 ammoPosition = GetRandomPosition(angleMax, 0.5f);
             Instantiate(ammoObject, ammoPosition, Quaternion.identity);
         }
     }
 
-    Vector3 GetRandomPosition(int angleMax) {
+    Vector3 GetRandomPosition(int angleMax, float defaultY) {
         float randomRadius = Random.Range(RadiusMin, RadiusMax);
         int randomAngle = Random.Range(0, angleMax);
         float angle = 2 * Mathf.PI * randomAngle / 360f;
@@ -70,14 +74,8 @@ public class SpawnerMobs : MonoBehaviour
 		Ray ray = new(new Vector3(x, 200f, z), Vector3.down);
 		RaycastHit hit;
 
-        float y = Physics.Raycast(ray, out hit) ? (hit.point.y + 0.5f) : 2f;
+        float y = Physics.Raycast(ray, out hit) ? (hit.point.y + 0.5f) : defaultY;
 
 		return new Vector3(x, y, z);
-	}
-
-    void BeginSpawning()
-    {
-        // This function can be used to trigger any initial setup before spawning begins
-        Debug.Log("Beginning to spawn mobs.");
 	}
 }
