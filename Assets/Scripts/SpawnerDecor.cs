@@ -15,7 +15,6 @@ public class DecorSpawner : MonoBehaviour
     public GameObject grass;
     private int grassCount = 100;
 
-
     void Start()
     {   // Instatiating fences
         SpawnInCircle(fence, fenceCount, fenceRadius);
@@ -25,11 +24,8 @@ public class DecorSpawner : MonoBehaviour
         // Grass Spawn
         for (int i = 0; i < grassCount; i++)
         {
-            float randomRadius = Random.Range(10, 34);
-            int randomAngle = Random.Range(0, 360);
-            float angle = 2 * Mathf.PI * randomAngle / 360f;
-
-            Instantiate(grass, new Vector3(randomRadius * Mathf.Cos(angle), 0.35f, randomRadius * Mathf.Sin(angle)), Quaternion.identity);
+            Vector3 position = SpawnUtils.GetRandomPosition(2f, 34f, 360, 0.35f, 0f);
+			Instantiate(grass, position, Quaternion.identity);
         }
     }
     void SpawnInCircle(GameObject obj, int nb, float radius) {

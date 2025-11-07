@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 
 public class SpawnerMobs : MonoBehaviour
 {
-    [SerializeField] private float RadiusMin;
-    [SerializeField] private float RadiusMax; 
+    [SerializeField] private float radiusMin;
+    [SerializeField] private float radiusMax; 
     [SerializeField] private GameObject mobObject;
     [SerializeField] private GameObject ammoObject;
 	[SerializeField] public Transform flagTarget;
@@ -46,9 +46,15 @@ public class SpawnerMobs : MonoBehaviour
 
     void SpawnWave(int nbMob, int angleMax)
     {
-        for (int i = 0; i < nbMob; i++)
+		// Spawn mobs
+		for (int i = 0; i < nbMob; i++)
         {
-            GameObject mob = Instantiate(mobObject, GetRandomPosition(angleMax, 2f), Quaternion.identity);
+            Vector3 position = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, angleMax, 2f);
+
+			// Create the rotation toward the center
+			Quaternion rotation = Quaternion.LookRotation(-position.normalized, Vector3.up);
+
+			GameObject mob = Instantiate(mobObject, position, rotation);
 			mob.SetActive(false);
 			Enemy enemy = mob.GetComponent<Enemy>();
             if (enemy != null && flagTarget != null)
@@ -57,25 +63,11 @@ public class SpawnerMobs : MonoBehaviour
                 mob.SetActive(true);
             }
 		}
-        if (Random.value < 0.5f){
-            Vector3 ammoPosition = GetRandomPosition(angleMax, 0.5f);
+
+		// Spawn ammo with 50% chance
+		if (Random.value < 0.5f){
+            Vector3 ammoPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, angleMax, 0.5f);
             Instantiate(ammoObject, ammoPosition, Quaternion.identity);
         }
     }
-
-    Vector3 GetRandomPosition(int angleMax, float defaultY) {
-        float randomRadius = Random.Range(RadiusMin, RadiusMax);
-        int randomAngle = Random.Range(0, angleMax);
-        float angle = 2 * Mathf.PI * randomAngle / 360f;
-
-        float x = randomRadius * Mathf.Cos(angle);
-        float z = randomRadius * Mathf.Sin(angle);
-
-		Ray ray = new(new Vector3(x, 200f, z), Vector3.down);
-		RaycastHit hit;
-
-        float y = Physics.Raycast(ray, out hit) ? (hit.point.y + 0.5f) : defaultY;
-
-		return new Vector3(x, y, z);
-	}
 }

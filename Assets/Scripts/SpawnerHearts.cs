@@ -14,7 +14,7 @@ public class SpawnerHearts : MonoBehaviour
 
     [Header("Spawn Area")]
     [SerializeField] private int maxAngle = 360; 
-    [SerializeField] private float spawnHeight = 1f; 
+    [SerializeField] private float defaultSpawnY = 1f; 
 
     void Start()
     {
@@ -36,23 +36,9 @@ public class SpawnerHearts : MonoBehaviour
 
     void SpawnHeart()
     {
-        Vector3 spawnPosition = GetRandomPosition(maxAngle);
+        Vector3 spawnPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, maxAngle, defaultSpawnY);
         GameObject heart = Instantiate(heartPrefab, spawnPosition, Quaternion.identity);
 
         Debug.Log("Heart spawned at: " + spawnPosition);
     }
-
-    Vector3 GetRandomPosition(int angleMax)
-    {
-        float randomRadius = Random.Range(radiusMin, radiusMax);
-        int randomAngle = Random.Range(0, angleMax);
-        float angle = 2 * Mathf.PI * randomAngle / 360f;
-
-        return new Vector3(
-            randomRadius * Mathf.Cos(angle),
-            spawnHeight,
-            randomRadius * Mathf.Sin(angle)
-        );
-    }
-
 }
