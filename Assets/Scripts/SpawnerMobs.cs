@@ -11,7 +11,7 @@ public class SpawnerMobs : MonoBehaviour
     [SerializeField] private float RadiusMax; 
     [SerializeField] private GameObject mobObject;
     [SerializeField] private GameObject ammoObject;
-    [SerializeField] public Transform flagTarget;
+	[SerializeField] public Transform flagTarget;
 
     void Start()
     {
@@ -64,8 +64,16 @@ public class SpawnerMobs : MonoBehaviour
         int randomAngle = Random.Range(0, angleMax);
         float angle = 2 * Mathf.PI * randomAngle / 360f;
 
-        return new Vector3(randomRadius * Mathf.Cos(angle), 2, randomRadius * Mathf.Sin(angle));
-    }
+        float x = randomRadius * Mathf.Cos(angle);
+        float z = randomRadius * Mathf.Sin(angle);
+
+		Ray ray = new(new Vector3(x, 200f, z), Vector3.down);
+		RaycastHit hit;
+
+        float y = Physics.Raycast(ray, out hit) ? (hit.point.y + 0.5f) : 2f;
+
+		return new Vector3(x, y, z);
+	}
 
     void BeginSpawning()
     {
