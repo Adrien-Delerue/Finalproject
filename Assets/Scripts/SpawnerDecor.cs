@@ -5,15 +5,16 @@ using UnityEngine;
 public class DecorSpawner : MonoBehaviour
 {
     public GameObject fence;
-    private int fenceCount = 35;
+    private int fenceCount = 30;
     private float fenceRadius = 35f;
 
     public GameObject backgroundTree;
     private int treeCount = 50;
-    private float treeRadius = 40f;
+    private float treeRadius = 41f;
 
     public GameObject grass;
-    private int grassCount = 100;    
+    private int grassCount = 100;
+
 
     void Start()
     {   // Instatiating fences
@@ -30,7 +31,6 @@ public class DecorSpawner : MonoBehaviour
 
             Instantiate(grass, new Vector3(randomRadius * Mathf.Cos(angle), 0.35f, randomRadius * Mathf.Sin(angle)), Quaternion.identity);
         }
-
     }
     void SpawnInCircle(GameObject obj, int nb, float radius) {
         for (int i = 0; i < nb; i++)
