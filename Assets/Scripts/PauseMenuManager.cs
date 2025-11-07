@@ -10,7 +10,7 @@ public class PauseMenuManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider volumeSlider;
-    [SerializeField] private GameObject crossHair; // Ajout de la référence au CrossHair
+    [SerializeField] private GameObject crossHair;
 
     public bool isPaused = false;
 
@@ -19,7 +19,6 @@ public class PauseMenuManager : MonoBehaviour
         // Hide the pause menu at start
         pauseMenuUI.SetActive(false);
 
-        // S'assurer que le CrossHair est visible au démarrage
         if (crossHair != null)
             crossHair.SetActive(true);
 
@@ -92,6 +91,9 @@ public class PauseMenuManager : MonoBehaviour
         if (crossHair != null)
             crossHair.SetActive(false);
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         // Select the slider so it's ready for input
         if (volumeSlider != null)
             EventSystem.current.SetSelectedGameObject(volumeSlider.gameObject);
@@ -99,12 +101,16 @@ public class PauseMenuManager : MonoBehaviour
 
     public void Resume()
     {
+        // Hide pause menu and resume time
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
 
         if (crossHair != null)
             crossHair.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SetVolume(float volume)
@@ -115,12 +121,16 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Application.Quit();
         Debug.Log("Quit Game");
     }
