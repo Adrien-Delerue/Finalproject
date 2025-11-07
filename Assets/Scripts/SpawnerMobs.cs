@@ -64,10 +64,14 @@ public class SpawnerMobs : MonoBehaviour
             }
 		}
 
-		// Spawn ammo with 50% chance
+		// Spawn nbAmmo with 50% chance
 		if (Random.value < 0.5f){
-            Vector3 ammoPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, angleMax, 0.5f);
-            Instantiate(ammoObject, ammoPosition, Quaternion.identity);
+            int nbAmmo = nbMob / 3 + 1;
+            for (int i = 0; i < nbAmmo; i++)
+            {
+			    Vector3 ammoPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, angleMax, 0.5f);
+                Instantiate(ammoObject, ammoPosition, Quaternion.identity);
+			}
         }
     }
 }

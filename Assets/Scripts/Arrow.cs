@@ -22,7 +22,7 @@ public class Arrow : MonoBehaviour
     void Update()
     {
 		// If stuck to a moving target, follow its transform
-		if (!hasHit) {
+		if (!hasHit && rb.velocity.sqrMagnitude > 0.0001f) {
             transform.rotation = Quaternion.LookRotation(rb.velocity);
         }
     }

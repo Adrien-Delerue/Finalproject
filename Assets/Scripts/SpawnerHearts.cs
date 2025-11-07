@@ -36,9 +36,7 @@ public class SpawnerHearts : MonoBehaviour
 
     void SpawnHeart()
     {
-        Vector3 spawnPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, maxAngle, defaultSpawnY);
+        Vector3 spawnPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, maxAngle, defaultSpawnY, 3f);
         GameObject heart = Instantiate(heartPrefab, spawnPosition, Quaternion.identity);
-
-        Debug.Log("Heart spawned at: " + spawnPosition);
     }
 }

@@ -12,7 +12,6 @@ public class HeartPickup : MonoBehaviour
             if (HealthBar.instance != null)
             {
                 HealthBar.instance.giveHP(hpAmount);
-                Debug.Log("HP pickup: +" + hpAmount);
             }
             else
             {

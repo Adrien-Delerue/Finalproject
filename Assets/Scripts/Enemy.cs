@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
 
     public void Init(Transform flagTargetParam)
 	{
-		Debug.Log("Initializing enemy: " + gameObject.name);
 		currentHealth = maxHealth;
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>(); // getting the Animator component
