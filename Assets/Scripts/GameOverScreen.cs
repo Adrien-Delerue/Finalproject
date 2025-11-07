@@ -9,17 +9,23 @@ public class GameOverScreen : MonoBehaviour
     public void Setup(int score)
     {
         gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void RestartButton()
     {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitButton()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
         Application.Quit();
         Debug.Log("Quit Game");
     }
