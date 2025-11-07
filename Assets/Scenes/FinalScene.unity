@@ -4585,8 +4585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39fd895581de9740a0599bc35101a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RadiusMin: 10
-  RadiusMax: 30
+  radiusMin: 10
+  radiusMax: 30
   mobObject: {fileID: 364932229}
   ammoObject: {fileID: 192435110}
   flagTarget: {fileID: 1898728110}
@@ -4608,7 +4608,7 @@ MonoBehaviour:
   spawnInterval: 10
   spawnChance: 0.3
   maxAngle: 360
-  spawnHeight: 1
+  defaultSpawnY: 1
 --- !u!4 &1898728110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8460614651773662372, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
