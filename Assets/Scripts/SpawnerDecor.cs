@@ -5,7 +5,7 @@ using UnityEngine;
 public class DecorSpawner : MonoBehaviour
 {
     public GameObject fence;
-    private int fenceCount = 30;
+    private int fenceCount = 35;
     private float fenceRadius = 35f;
 
     public GameObject backgroundTree;
@@ -28,7 +28,7 @@ public class DecorSpawner : MonoBehaviour
             int randomAngle = Random.Range(0, 360);
             float angle = 2 * Mathf.PI * randomAngle / 360f;
 
-            Instantiate(grass, new Vector3(randomRadius * Mathf.Cos(angle), 0, randomRadius * Mathf.Sin(angle)), Quaternion.identity);
+            Instantiate(grass, new Vector3(randomRadius * Mathf.Cos(angle), 0.35f, randomRadius * Mathf.Sin(angle)), Quaternion.identity);
         }
 
     }
