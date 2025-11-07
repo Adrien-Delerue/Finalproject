@@ -19,7 +19,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float maxHealth = 20f;
     
     private float currentHealth;
-	private float lastAttackTime = -Mathf.Infinity;
+    private bool isDead = false;
+    private float lastAttackTime = -Mathf.Infinity;
 	enum State { ToFlag, Chase, Attack }
 	private State state = State.ToFlag;
 
@@ -125,6 +126,7 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage(float amount)
     {
+		if (isDead) return;
         currentHealth -= amount;
         if (currentHealth <= 0f)
         {
@@ -134,6 +136,11 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+		isDead = true;
+		agent.isStopped = true;
+		agent.enabled = false;
+		GetComponent<Collider>().enabled=false;
+		enabled = false;
         if (ScoreManager.instance != null)
         {
             ScoreManager.instance.AddScore(100);

@@ -33,18 +33,25 @@ public class Arrow : MonoBehaviour
 		if (hasHit) return;
 		hasHit = true;
 
-		// Freeze physics on impact
-		rb.velocity = Vector3.zero;
-		rb.angularVelocity = Vector3.zero;
-		rb.isKinematic = true;
-
-		// Check for enemy hit
-		Enemy enemy = collision.collider.GetComponent<Enemy>();
-        if (enemy != null)
+        ContactPoint contact = collision.contacts[0];
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            enemy.TakeDamage(damage);
-        }
+            // Freeze physics on impact
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
 
-        Destroy(gameObject);
+        }
+        else
+        {
+            // Check for enemy hit
+            Enemy enemy = collision.collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

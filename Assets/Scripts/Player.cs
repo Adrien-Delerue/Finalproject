@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 	public static PlayerController instance;
 
 	[Header("Mouvement")]
-    [SerializeField] public float moveSpeed = 1f;
+    [SerializeField] public float moveSpeed = 10f;
 
     [Header("Caméra")]
     [SerializeField] public float mouseSensitivity = 200f;
