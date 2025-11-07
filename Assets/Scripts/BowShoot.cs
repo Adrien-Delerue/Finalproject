@@ -6,21 +6,20 @@ public class BowShoot : MonoBehaviour
     public Transform shootPoint;
 
     private float minPower = 10f;
-    private float maxPower = 30f;
-    private float chargeSpeed = 10f;
+    private float maxPower = 50f;
+    private float chargeSpeed = 40f;
 
     private float currentPower;
     private bool isCharging = false;
     
     public Camera playerCamera;
     [SerializeField] private float zoomFOV = 40f;   // FOV when aiming
-	[SerializeField] private float zoomSpeed = 2f;  // transition speed
-    [SerializeField] private float defaultFOV = 50f;
+	[SerializeField] private float zoomSpeed = 15f;  // transition speed
+    [SerializeField] private float defaultFOV = 70f;
 
     void Update()
     {
-        float targetFOV = isCharging ? zoomFOV : defaultFOV;
-        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
+        
         
         // If the player starts pressing (left click)
         if (Input.GetButtonDown("Fire1"))
@@ -45,6 +44,8 @@ public class BowShoot : MonoBehaviour
             ShootArrow();
             isCharging = false;
         }
+        float targetFOV = isCharging ? zoomFOV : defaultFOV;
+        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
     }
 
     void ShootArrow()
@@ -52,13 +53,13 @@ public class BowShoot : MonoBehaviour
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         Vector3 targetPoint;
         
-        if (Physics.Raycast(ray,out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray,out RaycastHit hit, 500f))
         {
             targetPoint = hit.point;
         }
         else
         {
-            targetPoint = ray.GetPoint(100f);
+            targetPoint = ray.GetPoint(500f);
         }
         Vector3 shootDir = (targetPoint - shootPoint.position).normalized;
         
