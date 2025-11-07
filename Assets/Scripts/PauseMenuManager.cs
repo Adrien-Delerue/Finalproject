@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour
 {
-	public static PauseMenuManager instance;
+    public static PauseMenuManager instance;
 
-	[Header("UI Elements")]
+    [Header("UI Elements")]
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private GameObject crossHair;
 
     public bool isPaused = false;
 
@@ -17,6 +18,9 @@ public class PauseMenuManager : MonoBehaviour
     {
         // Hide the pause menu at start
         pauseMenuUI.SetActive(false);
+
+        if (crossHair != null)
+            crossHair.SetActive(true);
 
         if (volumeSlider != null)
         {
@@ -83,7 +87,14 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        // Select the slider so it’s ready for input
+        // Cacher le CrossHair
+        if (crossHair != null)
+            crossHair.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        // Select the slider so it's ready for input
         if (volumeSlider != null)
             EventSystem.current.SetSelectedGameObject(volumeSlider.gameObject);
     }
@@ -94,6 +105,12 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        if (crossHair != null)
+            crossHair.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SetVolume(float volume)
@@ -104,12 +121,16 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Application.Quit();
         Debug.Log("Quit Game");
     }
