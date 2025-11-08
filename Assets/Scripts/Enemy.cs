@@ -66,19 +66,14 @@ public class Enemy : MonoBehaviour
 		float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
 		float distToFlag = Vector3.Distance(transform.position, flagTarget.position);
 
+		Debug.Log(state);
 		switch (state)
 		{
 			case State.ToFlag:
 				if (!agent.pathPending)
 				{
 					agent.SetDestination(flagTarget.position);
-
-					if (distToFlag <= agent.stoppingDistance)
-					{
-						OnReachFlag();
-					}
 				}
-
 				if (distToPlayer <= chaseRadius)
 					state = State.Chase;
 				break;
@@ -171,10 +166,5 @@ public class Enemy : MonoBehaviour
 		{
 			playerController.TakeDamage(playerDamage);
 		}
-	}
-
-	void OnReachFlag()
-	{
-		
 	}
 }

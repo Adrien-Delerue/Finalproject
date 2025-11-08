@@ -14,7 +14,7 @@ public class SpawnerMobs : MonoBehaviour
 	[SerializeField] public Transform flagTarget;
 
 	// Time between 2 waves
-	private float timeBetweenWaves = 5;
+	private float timeBetweenWaves = 5f;
 
 	void Start()
     {
