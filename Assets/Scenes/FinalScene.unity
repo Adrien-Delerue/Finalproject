@@ -1794,6 +1794,8 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 309883790}
   volumeSlider: {fileID: 1466164942}
   crossHair: {fileID: 1673029720}
+  mobOnFlagMusic: {fileID: 2083461103}
+  backgroundMusic: {fileID: 651725714}
   isPaused: 0
 --- !u!4 &1228458544
 Transform:
@@ -1907,6 +1909,10 @@ PrefabInstance:
       propertyPath: heartPrefab
       value: 
       objectReference: {fileID: 621584630249350254, guid: af9d1131c788d454fa7dae4544fa99d2, type: 3}
+    - target: {fileID: 8705602343828869557, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
+      propertyPath: spawnChance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9088814489144356382, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
       propertyPath: m_Name
       value: Flag
@@ -2409,7 +2415,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2106995944}
   m_Father: {fileID: 1371147629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2532,7 +2539,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1371147629
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2545,7 +2552,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2106995944}
   - {fileID: 620493699}
   - {fileID: 60838542}
   - {fileID: 1331525280}
@@ -4289,7 +4295,7 @@ GameObject:
   - component: {fileID: 2083461102}
   - component: {fileID: 2083461103}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: mobOnFlagAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4533,11 +4539,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1371147629}
+  m_Father: {fileID: 1331525280}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1063, y: -362.78}
+  m_AnchoredPosition: {x: 176.78632, y: -26}
   m_SizeDelta: {x: 100, y: 43.3192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807

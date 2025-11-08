@@ -1,49 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class PointUHD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pointText;
-    private int points = 10000;
-
-    private void Awake()
-    {
-        UpdateHUD();
-    }
-
-    public int Points
-    {
-        get => points;
-        set
-        {
-            points = value;
-            UpdateHUD();
-        }
-    }
-
-    private void UpdateHUD()
-    {
-        if (pointText != null)
-            pointText.text = points.ToString();
-    }
+    private int points = 0;
 
     void Start()
     {
-        Points = 10000;
+        if (ScoreManager.instance != null)
+        {
+            ScoreManager.instance.OnScoreChanged += UpdateScore;
+
+            UpdateScore(ScoreManager.instance.score);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDestroy()
     {
-        // ajouter 1 point quand la touche Espace est enfoncée
-        if (ScoreManager.instance!=null)
+        if (ScoreManager.instance != null)
         {
-            Points=ScoreManager.instance.score;
+            ScoreManager.instance.OnScoreChanged -= UpdateScore;
         }
+    }
+
+    private void UpdateScore(int newScore)
+    {
+        points = newScore;
+
+        if (pointText != null)
+            pointText.text = points.ToString();
     }
 }

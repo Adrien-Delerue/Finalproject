@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 318195338552340233}
   serializedVersion: 2
   m_LocalRotation: {x: -0.24206096, y: -0.623068, z: 0.042681813, w: 0.74254364}
-  m_LocalPosition: {x: 4.339113, y: 5.6123495, z: 0.6247407}
+  m_LocalPosition: {x: 4.348, y: 5.646, z: 0.609}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1370,13 +1370,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673598594397157862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12860875, y: -0.000000029802319, z: -0, w: 0.99169546}
-  m_LocalPosition: {x: -0.0000019073486, y: 2.9155, z: 12.889436}
+  m_LocalRotation: {x: 0.12502958, y: -0.03012998, z: 0.23233049, w: 0.9640966}
+  m_LocalPosition: {x: 0.276, y: 2.808, z: 12.861}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9107634629017456965}
-  m_LocalEulerAnglesHint: {x: 14.778, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.778, y: 0, z: 27.098}
 --- !u!33 &6967658433909015572
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2209,7 +2209,7 @@ GameObject:
   - component: {fileID: 7939843585312959018}
   - component: {fileID: 521999918272842566}
   m_Layer: 0
-  m_Name: Gravestone S1
+  m_Name: GravestoneS1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -57,14 +57,14 @@ public class DetectMob : MonoBehaviour
 
     void EnnemyEnterZone()
     {
-        backgroundMusic.Stop();
+        backgroundMusic.Pause();
         mobOnFlagMusic.Play();
         isGonnaDie = true;
     }
 
     void EnnemyLeaveZone()
     {
-        backgroundMusic.Play();
+        backgroundMusic.UnPause();
         mobOnFlagMusic.Stop();
         isGonnaDie = false;
     }

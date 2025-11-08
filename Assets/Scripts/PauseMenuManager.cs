@@ -12,6 +12,10 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private GameObject crossHair;
 
+    public AudioSource mobOnFlagMusic;
+    public AudioSource backgroundMusic;
+    private bool mobOnFlagPlaying = false;
+
     public bool isPaused = false;
 
     void Awake()
@@ -110,6 +114,14 @@ public class PauseMenuManager : MonoBehaviour
         // Select the slider so it's ready for input
         if (volumeSlider != null)
             EventSystem.current.SetSelectedGameObject(volumeSlider.gameObject);
+
+        //Pausing mobOnFlagMusic if playing
+        if (mobOnFlagMusic.isPlaying)
+        {
+            mobOnFlagPlaying = true;
+            mobOnFlagMusic.Pause();
+            backgroundMusic.UnPause();
+        }
     }
 
     public void Resume()
@@ -124,6 +136,14 @@ public class PauseMenuManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (mobOnFlagPlaying)
+        {
+            mobOnFlagPlaying = false;
+            mobOnFlagMusic.UnPause();
+            backgroundMusic.Pause();
+        }
+
     }
 
     public void SetVolume(float volume)
