@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
 		{
 			enabled = true;
 		}
+		
     }
 
 	void Update()
@@ -135,7 +136,13 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-		isDead = true;
+		//Show Death to player
+        animator.SetTrigger("Death");
+        deathAudio.Play();
+
+		tag = "Untagged";
+
+        isDead = true;
 		agent.isStopped = true;
 		agent.enabled = false;
 		GetComponent<Collider>().enabled=false;
@@ -144,8 +151,6 @@ public class Enemy : MonoBehaviour
         {
             ScoreManager.instance.AddScore(100);
         }
-        animator.SetTrigger("Death");
-        deathAudio.Play();
         StartCoroutine(WaitForAnimationAndDestroy());
     }
 
