@@ -14,6 +14,16 @@ public class PauseMenuManager : MonoBehaviour
 
     public bool isPaused = false;
 
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        //DontDestroyOnLoad(gameObject); 
+    }
     void Start()
     {
         // Hide the pause menu at start

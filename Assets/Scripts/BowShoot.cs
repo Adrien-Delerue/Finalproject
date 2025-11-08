@@ -6,8 +6,8 @@ public class BowShoot : MonoBehaviour
     public Transform shootPoint;
 
     private float minPower = 10f;
-    private float maxPower = 50f;
-    private float chargeSpeed = 40f;
+    private float maxPower = 60f;
+    private float chargeSpeed = 50f;
 
     private float currentPower;
     private bool isCharging = false;
@@ -16,14 +16,15 @@ public class BowShoot : MonoBehaviour
     [SerializeField] private float zoomFOV = 40f;   // FOV when aiming
 	[SerializeField] private float zoomSpeed = 15f;  // transition speed
     [SerializeField] private float defaultFOV = 70f;
-
+    
     void Update()
     {
-        
-        
+
+
         // If the player starts pressing (left click)
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && (PauseMenuManager.instance == null || !PauseMenuManager.instance.isPaused))
         {
+
             // Check that there are arrows left
             if (AmmoManager.instance != null && !AmmoManager.instance.UseAmmo())
                 return; // no shot if out of ammo
