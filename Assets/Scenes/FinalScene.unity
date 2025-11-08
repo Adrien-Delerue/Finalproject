@@ -1794,6 +1794,8 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 309883790}
   volumeSlider: {fileID: 1466164942}
   crossHair: {fileID: 1673029720}
+  mobOnFlagMusic: {fileID: 2083461103}
+  backgroundMusic: {fileID: 651725714}
   isPaused: 0
 --- !u!4 &1228458544
 Transform:
@@ -4289,7 +4291,7 @@ GameObject:
   - component: {fileID: 2083461102}
   - component: {fileID: 2083461103}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: mobOnFlagAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
