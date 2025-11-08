@@ -4,6 +4,7 @@ public class Arrow : MonoBehaviour
 {
 	public float damage = 10f;
 	[SerializeField] private float lifetime = 5f;
+    [SerializeField] private GameObject dustEffectPrefab;
 
 	private Rigidbody rb;
     private bool hasHit = false;
@@ -34,6 +35,8 @@ public class Arrow : MonoBehaviour
 		hasHit = true;
 
         ContactPoint contact = collision.contacts[0];
+        
+        
         if (collision.gameObject.CompareTag("Ground"))
         {
             // Freeze physics on impact
@@ -50,7 +53,8 @@ public class Arrow : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
-
+            Quaternion rot = Quaternion.identity;
+            Instantiate(dustEffectPrefab, contact.point, rot);
             Destroy(gameObject);
         }
     }

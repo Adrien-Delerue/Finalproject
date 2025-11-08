@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  lifetime: 5
+  dustEffectPrefab: {fileID: 6080099593678942644, guid: 08569a30ed0f27646b0da7c002be73af, type: 3}
 --- !u!54 &586215552468766385
 Rigidbody:
   m_ObjectHideFlags: 0
