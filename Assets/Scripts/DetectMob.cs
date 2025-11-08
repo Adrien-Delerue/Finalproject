@@ -24,6 +24,7 @@ public class DetectMob : MonoBehaviour
     void Update()
     {
         DetectMobFlag();
+        if(isGonnaDie & mobOnFlagMusic.time==mobOnFlagMusic.clip.length)gameController.GameOver();
     }
 
     void DetectMobFlag()
@@ -56,7 +57,6 @@ public class DetectMob : MonoBehaviour
 
     void EnnemyEnterZone()
     {
-        StartCoroutine(DeathCountDown());
         backgroundMusic.Stop();
         mobOnFlagMusic.Play();
         isGonnaDie = true;
@@ -64,16 +64,10 @@ public class DetectMob : MonoBehaviour
 
     void EnnemyLeaveZone()
     {
-        StopCoroutine(DeathCountDown());
         backgroundMusic.Play();
         mobOnFlagMusic.Stop();
         isGonnaDie = false;
     }
 
-    IEnumerator DeathCountDown()
-    {
-        yield return new WaitForSeconds(16.405f);
-        if(isGonnaDie)gameController.GameOver();
-        mobOnFlagMusic.Stop();
-    }
+  
 }

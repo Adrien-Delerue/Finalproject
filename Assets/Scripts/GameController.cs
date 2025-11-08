@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
                 crossHair.SetActive(false);
 
             GameOverScreen.Setup(ScoreManager.instance.score);
+            AudioListener.pause = true;
         }
     }
 
