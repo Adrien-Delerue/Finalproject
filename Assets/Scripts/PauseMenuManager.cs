@@ -16,15 +16,18 @@ public class PauseMenuManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null && instance != this)
+		// Singleton pattern to ensure only one instance exists
+		if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
         instance = this;
-        //DontDestroyOnLoad(gameObject); 
-    }
-    void Start()
+
+		// Volume initialization
+		AudioListener.volume = 0.5f;
+	}
+	void Start()
     {
         // Hide the pause menu at start
         pauseMenuUI.SetActive(false);

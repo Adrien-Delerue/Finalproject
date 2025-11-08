@@ -4614,7 +4614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radiusMin: 10
   radiusMax: 30
-  heartPrefab: {fileID: 679864369103879499, guid: 7c857df6f3a0c364997001a2dc84dbcf, type: 3}
+  heartPrefab: {fileID: 621584630249350254, guid: af9d1131c788d454fa7dae4544fa99d2, type: 3}
   spawnInterval: 10
   spawnChance: 0.3
   maxAngle: 360
