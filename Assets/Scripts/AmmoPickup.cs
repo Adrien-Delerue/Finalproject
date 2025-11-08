@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
@@ -16,7 +17,14 @@ public class AmmoPickup : MonoBehaviour
                 AmmoManager.instance.AddAmmo(ammoAmount);
             }
             ammoPickupSound.Play();
-            Destroy(gameObject);
+            StartCoroutine(WaitForSoundEffect());
+            
         }
+    }
+
+    IEnumerator WaitForSoundEffect()
+    {
+        yield return new WaitForSeconds(ammoPickupSound.clip.length);
+        Destroy(gameObject);
     }
 }

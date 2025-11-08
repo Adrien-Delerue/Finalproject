@@ -1913,6 +1913,10 @@ PrefabInstance:
       propertyPath: spawnChance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8705602343828869557, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
+      propertyPath: spawnInterval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9088814489144356382, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
       propertyPath: m_Name
       value: Flag

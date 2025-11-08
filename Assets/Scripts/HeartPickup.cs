@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HeartPickup : MonoBehaviour
@@ -21,14 +22,21 @@ public class HeartPickup : MonoBehaviour
             if (pickupSound != null)
             {
                 pickupSound.Play();
+                StartCoroutine(WaitForSoundEffect());
             }
 
-            Destroy(gameObject);
+            
         }
     }
 
     void Update()
     {
         transform.Rotate(Vector3.up, 50f * Time.deltaTime);
+    }
+
+    IEnumerator WaitForSoundEffect()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 }

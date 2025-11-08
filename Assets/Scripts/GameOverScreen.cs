@@ -18,7 +18,10 @@ public class GameOverScreen : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
+
+        AudioListener.pause = false;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
