@@ -3,7 +3,7 @@ using UnityEngine;
 public class HeartPickup : MonoBehaviour
 {
     [SerializeField] private int hpAmount = 10;
-    [SerializeField] private AudioClip pickupSound; 
+    [SerializeField] private AudioSource pickupSound; 
 
     void OnTriggerEnter(Collider other)
     {
@@ -20,7 +20,7 @@ public class HeartPickup : MonoBehaviour
 
             if (pickupSound != null)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                pickupSound.Play();
             }
 
             Destroy(gameObject);

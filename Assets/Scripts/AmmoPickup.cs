@@ -3,6 +3,7 @@ using UnityEngine;
 public class AmmoPickup : MonoBehaviour
 {
 	[SerializeField] private int ammoAmount = 5;
+    public AudioSource ammoPickupSound;
 
     void OnTriggerEnter(Collider other)
     {
@@ -14,7 +15,7 @@ public class AmmoPickup : MonoBehaviour
             {
                 AmmoManager.instance.AddAmmo(ammoAmount);
             }
-            
+            ammoPickupSound.Play();
             Destroy(gameObject);
         }
     }
