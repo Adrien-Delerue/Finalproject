@@ -74,5 +74,6 @@ public class DetectMob : MonoBehaviour
     {
         yield return new WaitForSeconds(16.405f);
         if(isGonnaDie)gameController.GameOver();
+        mobOnFlagMusic.Stop();
     }
 }
