@@ -1,14 +1,6 @@
-using OpenCover.Framework.Model;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using static UnityEditor.ShaderData;
+
 
 public class PointUHD : MonoBehaviour
 {
