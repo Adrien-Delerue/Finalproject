@@ -3815,6 +3815,7 @@ MonoBehaviour:
     spawnWeight: 2
   ammoPrefab: {fileID: 2637127460039612027, guid: 3facd99cedb2c0c42a2dfa408d0361e4, type: 3}
   flagTarget: {fileID: 1898728110}
+  maxMobPerWave: 7
 --- !u!4 &1898728110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8460614651773662372, guid: e96731e32cc26384da33046d73f7faa7, type: 3}

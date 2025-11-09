@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private int playerDamage = 10;
 	[SerializeField] private string playerTag = "Player";
 	[SerializeField] private float maxHealth = 20f;
+	[SerializeField] private int killPoints = 100;
 
 	private float currentHealth;
 	private bool isDead = false;
@@ -160,7 +161,7 @@ public class Enemy : MonoBehaviour
 		enabled = false;
 		if (ScoreManager.instance != null)
 		{
-			ScoreManager.instance.AddScore(100);
+			ScoreManager.instance.AddScore(killPoints);
 		}
 		StartCoroutine(WaitForAnimationAndDestroy());
 	}
