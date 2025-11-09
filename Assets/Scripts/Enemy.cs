@@ -154,7 +154,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator WaitForAnimationAndDestroy()
     {
-        yield return new WaitForSeconds(1.15f);
+        yield return new WaitForSeconds(0.7f);
         Destroy(gameObject);
     }
 
