@@ -9,14 +9,14 @@ public class SpawnerHearts : MonoBehaviour
     [SerializeField] public GameObject heartPrefab;
 
     [Header("Timing")]
-    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField] private float spawnInterval = 10f;
     [SerializeField] private float spawnChance = 0.3f; 
 
     [Header("Spawn Area")]
     [SerializeField] private int maxAngle = 360; 
-    [SerializeField] private float defaultSpawnY = 1f; 
+	[SerializeField] private float spawnYOffset = 1.25f;
 
-    void Start()
+	void Start()
     {
         StartCoroutine(SpawnLoop());
     }
@@ -36,7 +36,7 @@ public class SpawnerHearts : MonoBehaviour
 
     void SpawnHeart()
     {
-        Vector3 spawnPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, maxAngle, defaultSpawnY, 1f);
+        Vector3 spawnPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, maxAngle, 1f, spawnYOffset);
         GameObject heart = Instantiate(heartPrefab, spawnPosition, Quaternion.identity);
     }
 }

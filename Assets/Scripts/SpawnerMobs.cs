@@ -7,10 +7,17 @@ using Random = UnityEngine.Random;
 
 public class SpawnerMobs : MonoBehaviour
 {
-    [SerializeField] private float radiusMin;
+	[System.Serializable]
+	public class EnemySpawnData
+	{
+		public GameObject prefab;
+		[Range(0, 100)] public float spawnWeight;
+	}
+
+	[SerializeField] private float radiusMin;
     [SerializeField] private float radiusMax; 
-    [SerializeField] private GameObject mobObject;
-    [SerializeField] private GameObject ammoObject;
+	[SerializeField] private EnemySpawnData[] enemies;
+	[SerializeField] private GameObject ammoPrefab;
 	[SerializeField] public Transform flagTarget;
 
 	// Time between 2 waves
@@ -54,14 +61,8 @@ public class SpawnerMobs : MonoBehaviour
 			// Create the rotation toward the center
 			Quaternion rotation = Quaternion.LookRotation(-position.normalized, Vector3.up);
 
-			GameObject mob = Instantiate(mobObject, position, rotation);
-			mob.SetActive(false);
-			Enemy enemy = mob.GetComponent<Enemy>();
-            if (enemy != null && flagTarget != null)
-            {
-                enemy.Init(flagTarget);
-                mob.SetActive(true);
-            }
+			// Spawn a random enemy
+			SpawnRandomEnemy(position, rotation);
 		}
 
 		// Spawn nbAmmo with 50% chance
@@ -70,8 +71,34 @@ public class SpawnerMobs : MonoBehaviour
             for (int i = 0; i < nbAmmo; i++)
             {
 			    Vector3 ammoPosition = SpawnUtils.GetRandomPosition(radiusMin, radiusMax, angleMax, 0.5f);
-                Instantiate(ammoObject, ammoPosition, Quaternion.identity);
+                Instantiate(ammoPrefab, ammoPosition, Quaternion.identity);
 			}
         }
     }
+
+    private void SpawnRandomEnemy(Vector3 position, Quaternion rotation)
+    {
+		float totalWeight = 0;
+		foreach (var e in enemies) totalWeight += e.spawnWeight;
+
+		float random = Random.Range(0, totalWeight);
+		float current = 0;
+
+		foreach (var e in enemies)
+		{
+			current += e.spawnWeight;
+			if (random <= current)
+			{
+				GameObject newEnemy = Instantiate(e.prefab, position, rotation);
+				newEnemy.SetActive(false);
+				Enemy enemy = newEnemy.GetComponent<Enemy>();
+				if (enemy != null && flagTarget != null)
+				{
+					enemy.Init(flagTarget);
+					newEnemy.SetActive(true);
+				}
+				break;
+			}
+		}
+	}
 }

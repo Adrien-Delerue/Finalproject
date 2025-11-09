@@ -1911,11 +1911,15 @@ PrefabInstance:
       objectReference: {fileID: 621584630249350254, guid: af9d1131c788d454fa7dae4544fa99d2, type: 3}
     - target: {fileID: 8705602343828869557, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
       propertyPath: spawnChance
-      value: 1
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705602343828869557, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
+      propertyPath: spawnYOffset
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 8705602343828869557, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
       propertyPath: spawnInterval
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9088814489144356382, guid: e96731e32cc26384da33046d73f7faa7, type: 3}
       propertyPath: m_Name
@@ -3801,8 +3805,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radiusMin: 10
   radiusMax: 30
-  mobObject: {fileID: 9089048356506687218, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
-  ammoObject: {fileID: 2637127460039612027, guid: 3facd99cedb2c0c42a2dfa408d0361e4, type: 3}
+  enemies:
+  - prefab: {fileID: 9089048356506687218, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
+    spawnWeight: 80
+  - prefab: {fileID: 4554354979915143481, guid: df72db4e777969444976fa802cac4e05, type: 3}
+    spawnWeight: 18
+  - prefab: {fileID: 8300500884728808602, guid: 4d0cb1fb6aac3604bb0e8b76db7d74cd, type: 3}
+    spawnWeight: 2
+  ammoPrefab: {fileID: 2637127460039612027, guid: 3facd99cedb2c0c42a2dfa408d0361e4, type: 3}
   flagTarget: {fileID: 1898728110}
 --- !u!4 &1898728110 stripped
 Transform:
