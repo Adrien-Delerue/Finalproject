@@ -24,7 +24,7 @@ public class DetectMob : MonoBehaviour
     void Update()
     {
         DetectMobFlag();
-        if(isGonnaDie & mobOnFlagMusic.time==mobOnFlagMusic.clip.length)gameController.GameOver();
+        if(isGonnaDie & !mobOnFlagMusic.isPlaying)gameController.GameOver();
     }
 
     void DetectMobFlag()
@@ -54,7 +54,6 @@ public class DetectMob : MonoBehaviour
         }
 
     }
-
     void EnnemyEnterZone()
     {
         backgroundMusic.Pause();
