@@ -1621,8 +1621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71428200c7400424db4f028892363301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 100
-  currentAmmo: 5
+  maxAmmo: 50
+  currentAmmo: 50
 --- !u!4 &1038515117
 Transform:
   m_ObjectHideFlags: 0

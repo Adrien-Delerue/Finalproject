@@ -6,22 +6,23 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    private Transform flagTarget;
+	private Transform flagTarget;
 	private GameObject player;
 	private NavMeshAgent agent;
 
 	[SerializeField] private EnemyHealthBar enemyHealthBar;
 	[SerializeField] private float focusFlagRadius = 10f;
+	[SerializeField] private float reachedFlagRadius = 2.5f;
 	[SerializeField] private float chaseRadius = 10f;
 	[SerializeField] private float attackRadius = 2f;
 	[SerializeField] private float attackCooldown = 1.25f;
 	[SerializeField] private int playerDamage = 10;
 	[SerializeField] private string playerTag = "Player";
 	[SerializeField] private float maxHealth = 20f;
-    
-    private float currentHealth;
-    private bool isDead = false;
-    private float lastAttackTime = -Mathf.Infinity;
+
+	private float currentHealth;
+	private bool isDead = false;
+	private float lastAttackTime = -Mathf.Infinity;
 	enum State { ToFlag, Chase, Attack }
 	private State state = State.ToFlag;
 
@@ -30,12 +31,12 @@ public class Enemy : MonoBehaviour
 	public AudioSource attackAudio;
 	public AudioSource deathAudio;
 
-    public void Init(Transform flagTargetParam)
+	public void Init(Transform flagTargetParam)
 	{
 		currentHealth = maxHealth;
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>(); // getting the Animator component
-        player = PlayerController.instance?.gameObject;
+		player = PlayerController.instance?.gameObject;
 		flagTarget = flagTargetParam;
 		if (agent == null || flagTarget == null || player == null || transform == null)
 		{
@@ -46,8 +47,8 @@ public class Enemy : MonoBehaviour
 		{
 			enabled = true;
 		}
-		
-    }
+
+	}
 
 	void Update()
 	{
@@ -67,35 +68,47 @@ public class Enemy : MonoBehaviour
 		float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
 		float distToFlag = Vector3.Distance(transform.position, flagTarget.position);
 
+		// If player is within attack range, switch to Attack state
+		if (distToPlayer <= attackRadius && state != State.Attack)
+		{
+			agent.isStopped = true;
+			state = State.Attack;
+		}
+
+		bool mustChase = distToPlayer <= chaseRadius && distToFlag >= focusFlagRadius;
+
 		Debug.Log(state);
 		switch (state)
 		{
 			case State.ToFlag:
-				if (!agent.pathPending)
+				agent.isStopped = false;
+
+				if (distToFlag > reachedFlagRadius)
 				{
-					agent.SetDestination(flagTarget.position);
+					if (!agent.pathPending) agent.SetDestination(flagTarget.position);
+				} else
+				{
+					if (!agent.pathPending)
+					{
+						Vector3 randomDir = Random.insideUnitSphere * (reachedFlagRadius * 0.9f);
+						randomDir.y = 0; // Keep on the same horizontal plane
+						Vector3 randomPoint = flagTarget.position + randomDir;
+
+						agent.SetDestination(randomPoint);
+					}
 				}
-				if (distToPlayer <= chaseRadius)
-					state = State.Chase;
+
+				// Player close enough and flag far enough -> chase player
+				if (mustChase) state = State.Chase;
+
 				break;
 
 			case State.Chase:
 				agent.isStopped = false;
 				agent.SetDestination(player.transform.position);
 
-				// Close enough -> attack
-				if (distToPlayer <= attackRadius)
-				{
-					agent.isStopped = true;
-					state = State.Attack;
-				}
-
-				// Player too far or flag too close -> go back to flag
-				else if (distToPlayer > chaseRadius || distToFlag < focusFlagRadius)
-				{
-					state = State.ToFlag;
-					agent.isStopped = false;
-				}
+				// Player out of chase range or flag too close -> go to flag
+				if (!mustChase) state = State.ToFlag;
 				break;
 
 			case State.Attack:
@@ -121,51 +134,51 @@ public class Enemy : MonoBehaviour
 	}
 
 	public void TakeDamage(float amount)
-    {
+	{
 		if (isDead) return;
-        currentHealth -= amount;
+		currentHealth -= amount;
 		enemyHealthBar.SetHealthPercent(currentHealth / maxHealth);
 
 		if (currentHealth <= 0f)
-        {
-            Die();
-        }
-    }
+		{
+			Die();
+		}
+	}
 
-    void Die()
-    {
+	void Die()
+	{
 		//Show Death to player
-        animator.SetTrigger("Death");
-        deathAudio.Play();
+		animator.SetTrigger("Death");
+		deathAudio.Play();
 
 		tag = "Untagged";
 
-        isDead = true;
+		isDead = true;
 		agent.isStopped = true;
 		agent.enabled = false;
-		GetComponent<Collider>().enabled=false;
+		GetComponent<Collider>().enabled = false;
 		enabled = false;
-        if (ScoreManager.instance != null)
-        {
-            ScoreManager.instance.AddScore(100);
-        }
-        StartCoroutine(WaitForAnimationAndDestroy());
-    }
+		if (ScoreManager.instance != null)
+		{
+			ScoreManager.instance.AddScore(100);
+		}
+		StartCoroutine(WaitForAnimationAndDestroy());
+	}
 
-    private IEnumerator WaitForAnimationAndDestroy()
-    {
-        yield return new WaitForSeconds(0.7f);
-        Destroy(gameObject);
-    }
+	private IEnumerator WaitForAnimationAndDestroy()
+	{
+		yield return new WaitForSeconds(0.7f);
+		Destroy(gameObject);
+	}
 
-    void AttackPlayer()
+	void AttackPlayer()
 	{
 		PlayerController playerController = player.GetComponent<PlayerController>();
 
-        animator.SetTrigger("Attack");
-        attackAudio.Play();
+		animator.SetTrigger("Attack");
+		attackAudio.Play();
 
-        if (playerController != null)
+		if (playerController != null)
 		{
 			playerController.TakeDamage(playerDamage);
 		}
