@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float gravity = -15f;
 
     [Header("Caméra")]
-    [SerializeField] public float mouseSensitivity = 150f;
+    [SerializeField] public float mouseSensitivity = 40f;
     [SerializeField] public Transform playerBody;
     [SerializeField] public Transform shootPoint;
 
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        QualitySettings.vSyncCount = 0;
         // Lock the cursor to the center of the screen
         Cursor.lockState = CursorLockMode.Locked;
 
