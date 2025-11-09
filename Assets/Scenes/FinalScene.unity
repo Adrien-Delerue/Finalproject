@@ -2099,6 +2099,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  jumpHeight: 2
+  gravity: -20
   mouseSensitivity: 500
   playerBody: {fileID: 1297123667}
   shootPoint: {fileID: 2083012334}
@@ -2546,7 +2548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1371147629
 RectTransform:
   m_ObjectHideFlags: 0
