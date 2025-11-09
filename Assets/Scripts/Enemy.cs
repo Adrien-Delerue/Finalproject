@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-	private Transform flagTarget;
+	private Transform targetTransform;
 	private GameObject player;
 	private NavMeshAgent agent;
 
@@ -24,22 +24,22 @@ public class Enemy : MonoBehaviour
 	private float currentHealth;
 	private bool isDead = false;
 	private float lastAttackTime = -Mathf.Infinity;
-	enum State { ToFlag, Chase, Attack }
-	private State state = State.ToFlag;
+	enum State { MoveToObjective, Patrol, Chase, Attack }
+	private State state = State.MoveToObjective;
 
 	private Animator animator;
 
 	public AudioSource attackAudio;
 	public AudioSource deathAudio;
 
-	public void Init(Transform flagTargetParam)
+	public void Init(Transform targetTransformParam)
 	{
 		currentHealth = maxHealth;
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>(); // getting the Animator component
 		player = PlayerController.instance?.gameObject;
-		flagTarget = flagTargetParam;
-		if (agent == null || flagTarget == null || player == null || transform == null)
+		targetTransform = targetTransformParam;
+		if (agent == null || targetTransform == null || player == null || transform == null)
 		{
 			Debug.LogError("Enemy initialization error: missing components or references.");
 			enabled = false;
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
 
 	void Update()
 	{
-		if (flagTarget == null)
+		if (targetTransform == null)
 		{
 			Debug.LogError("Flag target is null. Enemy cannot operate.");
 			return;
@@ -67,57 +67,72 @@ public class Enemy : MonoBehaviour
 		}
 
 		float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
-		float distToFlag = Vector3.Distance(transform.position, flagTarget.position);
+		float distToObjective = Vector3.Distance(transform.position, targetTransform.position);
 
-		// If player is within attack range, switch to Attack state
+		// Priority : If player is within attack range, switch to Attack state
 		if (distToPlayer <= attackRadius && state != State.Attack)
 		{
 			agent.isStopped = true;
 			state = State.Attack;
 		}
 
-		bool mustChase = distToPlayer <= chaseRadius && distToFlag >= focusFlagRadius;
+		bool mustChase = distToPlayer <= chaseRadius && distToObjective >= focusFlagRadius;
 
-		Debug.Log(state);
 		switch (state)
 		{
-			case State.ToFlag:
+			case State.MoveToObjective:
 				agent.isStopped = false;
 
-				if (distToFlag > reachedFlagRadius)
+				// Move toward the objective until close enough
+				if (!agent.pathPending && distToObjective > reachedFlagRadius)
 				{
-					if (!agent.pathPending) agent.SetDestination(flagTarget.position);
-				} else
-				{
-					if (!agent.pathPending)
-					{
-						Vector3 randomDir = Random.insideUnitSphere * (reachedFlagRadius * 0.9f);
-						randomDir.y = 0; // Keep on the same horizontal plane
-						Vector3 randomPoint = flagTarget.position + randomDir;
-
-						agent.SetDestination(randomPoint);
-					}
+					agent.SetDestination(targetTransform.position);
 				}
 
-				// Player close enough and flag far enough -> chase player
-				if (mustChase) state = State.Chase;
+				// Once reached, transition to Patrol state
+				if (distToObjective <= reachedFlagRadius)
+				{
+					state = State.Patrol;
+				}
 
+				// Player detected while moving (but flag far enough) -> chase
+				if (mustChase) state = State.Chase;
+				break;
+
+			case State.Patrol:
+				agent.isStopped = false;
+
+				// Generate random patrol points around the objective
+				if (!agent.pathPending)
+				{
+					Vector3 randomDir = Random.insideUnitSphere * (reachedFlagRadius * 0.9f);
+					randomDir.y = 0; // Keep on the same horizontal plane
+					Vector3 randomPoint = targetTransform.position + randomDir;
+
+					agent.SetDestination(randomPoint);
+				}
 				break;
 
 			case State.Chase:
 				agent.isStopped = false;
+
+				// Continuously update destination to player's position
 				agent.SetDestination(player.transform.position);
 
-				// Player out of chase range or flag too close -> go to flag
-				if (!mustChase) state = State.ToFlag;
+				// Player out of chase range or too close to objective -> return
+				if (!mustChase) 
+				{
+					state = State.MoveToObjective;
+				}
 				break;
 
 			case State.Attack:
-				// Face player (only rotate on Y)
+				// Face the player (only rotate on Y axis)
 				Vector3 lookPos = player.transform.position;
 				lookPos.y = transform.position.y;
 				transform.LookAt(lookPos);
 
+				// Attack if cooldown has elapsed
 				if (Time.time - lastAttackTime >= attackCooldown)
 				{
 					lastAttackTime = Time.time;
