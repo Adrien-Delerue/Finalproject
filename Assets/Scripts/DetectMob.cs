@@ -11,6 +11,7 @@ public class DetectMob : MonoBehaviour
     public AudioSource mobOnFlagMusic;
 
     public GameController gameController;
+    public PauseMenuManager Pause;
 
     private int currentCount = 0;
     private int oldCount = 0; //number of ennemy on the previous frame
@@ -20,11 +21,12 @@ public class DetectMob : MonoBehaviour
     public void Init()
     {
         gameController = GetComponent<GameController>();
+        Pause = GetComponent<PauseMenuManager>();
     }
     void Update()
     {
         DetectMobFlag();
-        if(isGonnaDie & !mobOnFlagMusic.isPlaying)gameController.GameOver();
+        if(isGonnaDie & (!mobOnFlagMusic.isPlaying & !Pause.isPaused))gameController.GameOver();
     }
 
     void DetectMobFlag()

@@ -3836,6 +3836,7 @@ MonoBehaviour:
   backgroundMusic: {fileID: 651725714}
   mobOnFlagMusic: {fileID: 2083461103}
   gameController: {fileID: 1297123668}
+  Pause: {fileID: 1228458543}
 --- !u!1 &1990464704
 GameObject:
   m_ObjectHideFlags: 0
