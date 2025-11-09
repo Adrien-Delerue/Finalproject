@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 	private GameObject player;
 	private NavMeshAgent agent;
 
+	[SerializeField] private EnemyHealthBar enemyHealthBar;
 	[SerializeField] private float focusFlagRadius = 10f;
 	[SerializeField] private float chaseRadius = 10f;
 	[SerializeField] private float attackRadius = 2f;
@@ -123,7 +124,9 @@ public class Enemy : MonoBehaviour
     {
 		if (isDead) return;
         currentHealth -= amount;
-        if (currentHealth <= 0f)
+		enemyHealthBar.SetHealthPercent(currentHealth / maxHealth);
+
+		if (currentHealth <= 0f)
         {
             Die();
         }
