@@ -18,7 +18,8 @@ public class SpawnerMobs : MonoBehaviour
     [SerializeField] private float radiusMax; 
 	[SerializeField] private EnemySpawnData[] enemies;
 	[SerializeField] private GameObject ammoPrefab;
-	[SerializeField] public Transform flagTarget;
+	[SerializeField] private Transform flagTarget;
+	[SerializeField] private int maxMobPerWave = 7;
 
 	// Time between 2 waves
 	private float timeBetweenWaves = 5f;
@@ -44,7 +45,7 @@ public class SpawnerMobs : MonoBehaviour
                 timeBetweenWaves += 5f;
 			}
 
-			int nbMob = ScoreManager.instance.score / 500 + 1;
+			int nbMob = Math.Min(ScoreManager.instance.score / 500 + 1, maxMobPerWave);
 			int angleMax = Mathf.Min(Mathf.Max(45, Mathf.RoundToInt(ScoreManager.instance.score * 0.1f)), 360);
 
 			SpawnWave(nbMob, angleMax);
