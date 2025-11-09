@@ -2118,7 +2118,6 @@ MonoBehaviour:
   shootPoint: {fileID: 2083012334}
   playerCamera: {fileID: 1990464707}
   zoomFOV: 40
-  zoomSpeed: 5
   defaultFOV: 50
 --- !u!54 &1297123663
 Rigidbody:

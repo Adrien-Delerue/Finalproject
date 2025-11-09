@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 217027996082740944, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
       propertyPath: maxHealth
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7931455478183065606, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ff4534fad7ab47949834e713661fa727, type: 2}
     - target: {fileID: 9089048356506687218, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
       propertyPath: m_Name
-      value: Pink Enemy
+      value: EnemyPink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-	public float damage = 10f;
+    private float maxDamage =20f;
+    private float minDamge = 10f;
+	public float damage;
 	[SerializeField] private float lifetime = 5f;
     [SerializeField] private GameObject dustEffectPrefab;
 
@@ -52,10 +54,15 @@ public class Arrow : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                Quaternion rot = Quaternion.identity;
+                Instantiate(dustEffectPrefab, contact.point, rot);
             }
-            Quaternion rot = Quaternion.identity;
-            Instantiate(dustEffectPrefab, contact.point, rot);
+            
             Destroy(gameObject);
         }
+    }
+    public void SetDamage(float chargeRatio)
+    {
+        damage = Mathf.Lerp(minDamge, maxDamage, chargeRatio);
     }
 }

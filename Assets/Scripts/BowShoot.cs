@@ -14,7 +14,6 @@ public class BowShoot : MonoBehaviour
     
     public Camera playerCamera;
     [SerializeField] private float zoomFOV = 40f;   // FOV when aiming
-	[SerializeField] private float zoomSpeed = 15f;  // transition speed
     [SerializeField] private float defaultFOV = 70f;
     
     void Update()
@@ -34,9 +33,10 @@ public class BowShoot : MonoBehaviour
 
         // While holding the click, charge the power
         if (isCharging && Input.GetButton("Fire1"))
-        {
+        {   
             currentPower += chargeSpeed * Time.deltaTime;
             currentPower = Mathf.Clamp(currentPower, minPower, maxPower);
+            playerCamera.fieldOfView = Mathf.Lerp(defaultFOV, zoomFOV, ((currentPower - minPower) / (maxPower - minPower)));
         }
 
         // When released, shoot
@@ -44,9 +44,9 @@ public class BowShoot : MonoBehaviour
         {
             ShootArrow();
             isCharging = false;
+            playerCamera.fieldOfView = defaultFOV;
         }
-        float targetFOV = isCharging ? zoomFOV : defaultFOV;
-        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);
+        
     }
 
     void ShootArrow()
@@ -77,7 +77,8 @@ public class BowShoot : MonoBehaviour
         Arrow arrowScript = arrow.GetComponent<Arrow>();
         if (arrowScript != null)
         {
-            arrowScript.damage = currentPower;
+            float chargeRatio = Mathf.InverseLerp(minPower, maxPower, currentPower);
+            arrowScript.SetDamage(chargeRatio);
         }        
     }
 }
