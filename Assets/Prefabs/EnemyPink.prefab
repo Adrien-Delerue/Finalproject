@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: killPoints
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 217027996082740944, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
+      propertyPath: playerDamage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7931455478183065606, guid: a10d5e10b51c9de4daab419d612db766, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
