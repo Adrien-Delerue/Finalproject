@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float gravity = -15f;
 
     [Header("Caméra")]
-    [SerializeField] public float mouseSensitivity = 40f;
+    [SerializeField] public float mouseSensitivity = 0.5f;
     [SerializeField] public Transform playerBody;
     [SerializeField] public Transform shootPoint;
 
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         // Camera Movement
-        float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
